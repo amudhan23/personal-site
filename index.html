@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Amudhan Muthaiah</title>
+<meta name="description" content="Amudhan Muthaiah — software engineer in New York. Backend at scale (IBM), EVM infrastructure (Sahara AI), zero-knowledge proofs in Rust (NYU Courant). 3× hackathon winner, patent holder.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@300;400;500&display=swap">
+
+<style>
+:root{
+  --bg:#0c0a08; --bg2:#100e0b; --surface:#15120e; --elev:#1c1813;
+  --fg:#f3ede3; --fg2:#a79c8c; --fg3:#6b6256; --line:rgba(243,237,227,.08);
+  --tur:#e9a63a; --saf:#ef7d3a; --rose:#d9607a; --indigo:#8d7cf6; --teal:#58c7b4;
+  --grad:linear-gradient(120deg,#e9a63a 0%,#ef7d3a 55%,#d9607a 100%);
+  --display:'Fraunces',Georgia,serif; --sans:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --sl:max(20px,env(safe-area-inset-left,0px)); --sr:max(20px,env(safe-area-inset-right,0px));
+  --mw:1120px; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:overlay}
+::selection{background:rgba(233,166,58,.35);color:#fff}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+.wrap{max-width:var(--mw);margin:0 auto;padding-left:var(--sl);padding-right:var(--sr)}
+.serif{font-family:var(--display)}
+.ital{font-family:var(--display);font-style:italic;font-weight:400}
+.g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* progress + nav */
+.prog{position:fixed;top:0;left:0;height:2px;width:0;background:var(--grad);z-index:300}
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;opacity:0;transform:translateY(-12px);transition:opacity .5s var(--ease),transform .5s var(--ease);pointer-events:none}
+.nav.on{opacity:1;transform:none;pointer-events:auto}
+.nav-glass{position:absolute;inset:0;background:rgba(12,10,8,.72);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border-bottom:1px solid var(--line);z-index:-1}
+.nav-in{height:62px;display:flex;align-items:center;justify-content:space-between}
+.nav-name{font-family:var(--display);font-weight:500;font-size:17px;letter-spacing:-.01em}
+.nav-name em{color:var(--tur);font-style:italic}
+.nm-short{display:none}
+@media(max-width:680px){.nm-full{display:none}.nm-short{display:inline}}
+.nav-links{display:flex;gap:26px}
+.nav-links a{font-size:13px;font-weight:500;color:var(--fg3);transition:color .25s;position:relative}
+.nav-links a:hover,.nav-links a.act{color:var(--fg)}
+.nav-links a.act::after{content:'';position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--tur)}
+
+/* hero */
+.hero{min-height:100vh;min-height:100svh;position:relative;display:flex;flex-direction:column;justify-content:center;padding-block:120px 90px;overflow:hidden}
+#kolam{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-fade{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 35% 50%,rgba(12,10,8,.0) 0%,rgba(12,10,8,.55) 60%,rgba(12,10,8,.92) 100%)}
+.hero-in{position:relative;z-index:2}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(88,199,180,.6);animation:ping 2.4s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(88,199,180,.55)}70%{box-shadow:0 0 0 10px rgba(88,199,180,0)}100%{box-shadow:0 0 0 0 rgba(88,199,180,0)}}
+.hero h1{font-family:var(--display);font-weight:300;font-size:clamp(54px,9.4vw,124px);line-height:.98;letter-spacing:-.035em;margin:0;font-variation-settings:'opsz' 144}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln span{display:inline-block}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--tur)}
+.hero-sub{margin:34px 0 0;max-width:600px;font-size:clamp(17px,1.9vw,21px);line-height:1.6;color:var(--fg2);font-weight:400}
+.hero-sub b{color:var(--fg);font-weight:500}
+.hero-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;padding:12px 22px;border-radius:999px;border:1px solid var(--line);color:var(--fg2);background:rgba(255,255,255,.02);cursor:pointer;transition:all .35s var(--ease)}
+.btn:hover{color:var(--fg);border-color:rgba(233,166,58,.4);transform:translateY(-1px)}
+.btn-fill{background:var(--fg);color:var(--bg);border-color:transparent}
+.btn-fill:hover{background:#fff;color:var(--bg);box-shadow:0 10px 30px rgba(233,166,58,.18)}
+.hero-meta{position:absolute;left:var(--sl);bottom:34px;z-index:2;display:flex;gap:28px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg3)}
+.hero-meta span b{color:var(--fg2);font-weight:500}
+.hero-coord{position:absolute;right:var(--sr);bottom:34px;z-index:2;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--fg3);text-align:right;line-height:1.9}
+
+/* marquee */
+.ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:var(--bg2);padding:14px 0;position:relative}
+.ticker::before,.ticker::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
+.ticker::before{left:0;background:linear-gradient(90deg,var(--bg2),transparent)}
+.ticker::after{right:0;background:linear-gradient(270deg,var(--bg2),transparent)}
+.ticker-track{display:flex;gap:0;width:max-content;animation:scroll 48s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-track span{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg3);padding:0 28px;white-space:nowrap;display:inline-flex;align-items:center;gap:28px}
+.ticker-track span::after{content:'✦';color:var(--tur);font-size:9px;opacity:.7}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* sections */
+.sec{padding-block:120px;position:relative}
+.sec-head{display:grid;grid-template-columns:150px 1fr;gap:24px;align-items:end;margin-bottom:56px}
+.sec-num{font-family:var(--display);font-size:clamp(34px,4vw,46px);font-weight:300;color:var(--tur);line-height:1;letter-spacing:-.02em}
+.sec-num small{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);margin-top:8px}
+.sec h2{font-family:var(--display);font-weight:300;font-size:clamp(34px,5vw,60px);line-height:1.02;letter-spacing:-.03em;margin:0;text-wrap:balance}
+.sec h2 em{font-style:italic;font-weight:400;color:var(--tur)}
+.sec-sub{color:var(--fg2);font-size:clamp(15px,1.5vw,17px);max-width:580px;margin:14px 0 0;line-height:1.7}
+.rule{height:1px;background:var(--line)}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:64px;align-items:start}
+.about-words{font-family:var(--display);font-size:clamp(22px,2.7vw,32px);font-weight:300;line-height:1.5;letter-spacing:-.01em;color:var(--fg);margin:0}
+.about-words .w{display:inline-block;opacity:.14;filter:blur(3px);will-change:opacity,filter}
+.about-words em{font-style:italic;color:var(--tur);font-weight:400}
+.about-p{color:var(--fg2);font-size:15.5px;line-height:1.75;margin:28px 0 0;max-width:620px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 20px;position:relative;overflow:hidden;transition:border-color .3s,transform .4s var(--ease)}
+.stat:hover{border-color:rgba(233,166,58,.3);transform:translateY(-2px)}
+.stat .v{font-family:var(--display);font-size:38px;font-weight:300;line-height:1;letter-spacing:-.02em;color:var(--fg)}
+.stat .v b{font-weight:400;font-style:italic;color:var(--tur)}
+.stat .l{font-size:12px;color:var(--fg3);margin-top:8px;font-weight:500;line-height:1.4}
+.now{margin-top:12px;grid-column:1/-1;background:linear-gradient(135deg,rgba(233,166,58,.08),rgba(141,124,246,.06));border:1px solid rgba(233,166,58,.18);border-radius:14px;padding:18px 20px}
+.now .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--tur);margin-bottom:6px}
+.now p{margin:0;font-size:13.5px;color:var(--fg2);line-height:1.6}
+.now p b{color:var(--fg);font-weight:600}
+
+/* projects */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.fbtn{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--fg3);cursor:pointer;transition:all .25s var(--ease)}
+.fbtn:hover,.fbtn.on{color:var(--fg);border-color:rgba(233,166,58,.4);background:rgba(233,166,58,.07)}
+.feat{display:grid;grid-template-columns:1.1fr 1fr;border:1px solid rgba(233,166,58,.22);border-radius:20px;overflow:hidden;background:linear-gradient(140deg,#1a1510 0%,#120f0c 60%,#0f0d0a 100%);margin-bottom:18px;position:relative}
+.feat::before{content:'';position:absolute;inset:0;background:radial-gradient(600px 300px at 90% 0%,rgba(239,125,58,.14),transparent 60%);pointer-events:none}
+.feat-body{padding:44px 40px;position:relative}
+.feat-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--tur);display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.feat-tag .live{display:inline-flex;align-items:center;gap:6px;color:var(--teal)}
+.feat-tag .live i{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:ping 2s infinite}
+.feat h3{font-family:var(--display);font-weight:300;font-size:clamp(36px,4.5vw,56px);letter-spacing:-.03em;line-height:1;margin:0 0 16px}
+.feat h3 em{font-style:italic;font-weight:400;color:var(--tur)}
+.feat p{color:var(--fg2);font-size:15px;line-height:1.7;margin:0 0 20px;max-width:520px}
+.feat-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.feat-screen{position:relative;padding:40px 36px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--line);background:rgba(0,0,0,.25)}
+.term{background:#0a0907;border:1px solid var(--line);border-radius:12px;padding:18px 20px;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:var(--fg2);box-shadow:0 30px 60px rgba(0,0,0,.4)}
+.term .bar{display:flex;gap:6px;margin-bottom:12px}
+.term .bar i{width:9px;height:9px;border-radius:50%;background:#2a2520}
+.term .bar i:first-child{background:#e06c5e}.term .bar i:nth-child(2){background:#e9a63a}.term .bar i:nth-child(3){background:#58c7b4}
+.term .ln{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.term .ln .k{color:var(--fg3)}
+.term .ln .v{color:var(--fg)}
+.term .ln .t{color:var(--tur)}
+.term .ln .ok{color:var(--teal)}
+.term .cur{display:inline-block;width:7px;height:14px;background:var(--tur);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.lang{color:var(--fg);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--fg3);background:rgba(255,255,255,.04);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:30px 28px;position:relative;overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,transform .5s var(--ease),box-shadow .5s var(--ease);transform-style:preserve-3d}
+.pcard:hover{border-color:rgba(233,166,58,.3);box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:.0;transition:opacity .35s;background:var(--grad)}
+.pcard[data-cat*="zk"]::before{background:linear-gradient(90deg,var(--indigo),var(--rose))}
+.pcard[data-cat*="systems"]::before{background:linear-gradient(90deg,var(--teal),var(--tur))}
+.pcard:hover::before{opacity:1}
+.pcard .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.pcard .tag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg3)}
+.pcard .win{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--tur);background:rgba(233,166,58,.1);border:1px solid rgba(233,166,58,.25);padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pcard .win.solo{color:var(--teal);background:rgba(88,199,180,.08);border-color:rgba(88,199,180,.25)}
+.pcard .win.wip{color:var(--indigo);background:rgba(141,124,246,.08);border-color:rgba(141,124,246,.25)}
+.pcard h3{font-family:var(--display);font-weight:400;font-size:24px;letter-spacing:-.02em;line-height:1.15;margin:0 0 10px}
+.pcard p{color:var(--fg2);font-size:13.5px;line-height:1.7;margin:0 0 18px;flex:1}
+.pcard .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.plink{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--tur);white-space:nowrap;transition:gap .3s}
+.plink:hover{gap:10px}
+.plink.off{color:var(--fg3);cursor:default}
+.plinks{display:flex;flex-direction:column;gap:3px;align-items:flex-end}
+
+/* experience */
+.xp{position:relative;display:grid;grid-template-columns:200px 1fr;gap:0}
+.xp-line{position:absolute;left:200px;top:0;bottom:0;width:1px;background:var(--line)}
+.xp-fill{position:absolute;left:200px;top:0;width:1px;height:0;background:linear-gradient(180deg,var(--tur),var(--rose));box-shadow:0 0 12px rgba(233,166,58,.5)}
+.xp-item{display:contents}
+.xp-when{padding:34px 24px 34px 0;font-family:var(--mono);font-size:11.5px;color:var(--fg3);text-align:right;line-height:1.6}
+.xp-when b{display:block;color:var(--fg2);font-weight:500}
+.xp-body{padding:34px 0 34px 44px;border-bottom:1px solid var(--line);position:relative}
+.xp-item:last-child .xp-body{border-bottom:none}
+.xp-body::before{content:'';position:absolute;left:-5px;top:42px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:1.5px solid var(--fg3);transition:all .4s}
+.xp-item.lit .xp-body::before{background:var(--tur);border-color:var(--tur);box-shadow:0 0 14px rgba(233,166,58,.6)}
+.xp-role{font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:-.015em;line-height:1.2}
+.xp-co{color:var(--tur);font-size:14px;font-weight:600;margin:4px 0 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.xp-co span{color:var(--fg3);font-weight:400;font-family:var(--mono);font-size:11px}
+.xp-body ul{margin:0;padding-left:18px;color:var(--fg2);font-size:14px;line-height:1.7;max-width:640px}
+.xp-body li{margin-bottom:6px}
+.xp-body li b{color:var(--fg);font-weight:500}
+.xp-body .chips{margin-top:14px}
+.xp-early{margin-top:40px;border:1px solid var(--line);border-radius:16px;padding:26px 28px;background:var(--bg2)}
+.xp-early .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);margin-bottom:14px}
+.early-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.early h4{font-size:15px;font-weight:600;margin:0 0 2px}
+.early .d{font-family:var(--mono);font-size:10.5px;color:var(--fg3);margin-bottom:8px}
+.early p{margin:0;color:var(--fg2);font-size:13px;line-height:1.6}
+
+/* research & recognition */
+.rr{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:30px 28px}
+.card .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.card .k::after{content:'';flex:1;height:1px;background:var(--line)}
+.pub{padding:14px 0;border-bottom:1px solid var(--line)}
+.pub:last-child{border-bottom:none;padding-bottom:0}
+.pub:first-of-type{padding-top:0}
+.pub .t{font-family:var(--display);font-size:19px;font-weight:400;letter-spacing:-.01em;line-height:1.3}
+.pub .m{font-size:12.5px;color:var(--fg2);margin-top:4px}
+.pub .m b{color:var(--tur);font-weight:600}
+.pub .m code{font-family:var(--mono);font-size:11px;color:var(--fg3)}
+.aw{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.awc{border:1px solid var(--line);border-radius:12px;padding:18px 16px;background:rgba(255,255,255,.015);transition:border-color .3s,transform .4s var(--ease)}
+.awc:hover{border-color:rgba(233,166,58,.3);transform:translateY(-2px)}
+.awc .y{font-family:var(--mono);font-size:10px;color:var(--fg3);letter-spacing:.1em}
+.awc .n{font-size:14.5px;font-weight:600;margin:6px 0 2px;line-height:1.3}
+.awc .s{font-size:12.5px;color:var(--fg2);line-height:1.5}
+.awc .s b{color:var(--tur);font-weight:600}
+.patent{margin-top:18px;border:1px solid rgba(141,124,246,.3);background:linear-gradient(135deg,rgba(141,124,246,.09),rgba(217,96,122,.05));border-radius:18px;padding:26px 28px;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center}
+.patent .seal{width:64px;height:64px;border-radius:50%;border:1px dashed rgba(141,124,246,.6);display:grid;place-items:center;font-family:var(--display);font-style:italic;font-size:22px;color:var(--indigo);position:relative}
+.patent .seal::after{content:'';position:absolute;inset:6px;border-radius:50%;border:1px solid rgba(141,124,246,.35)}
+.patent .t{font-family:var(--display);font-size:22px;font-weight:400;letter-spacing:-.01em}
+.patent .d{color:var(--fg2);font-size:13.5px;margin-top:4px;line-height:1.6}
+.patent .no{font-family:var(--mono);font-size:12px;color:var(--indigo);text-align:right;line-height:1.7}
+.patent .no b{display:block;font-size:16px;color:var(--fg);font-weight:500}
+
+/* education + skills */
+.edu{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.educ{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:30px 28px;position:relative;overflow:hidden}
+.educ .yr{font-family:var(--mono);font-size:11px;color:var(--fg3);letter-spacing:.08em}
+.educ h3{font-family:var(--display);font-size:26px;font-weight:400;letter-spacing:-.02em;margin:10px 0 2px;line-height:1.15}
+.educ .sch{color:var(--tur);font-size:14px;font-weight:600;margin-bottom:14px}
+.educ p{color:var(--fg2);font-size:13.5px;line-height:1.65;margin:0}
+.educ .big{position:absolute;right:18px;top:10px;font-family:var(--display);font-style:italic;font-size:110px;color:rgba(243,237,227,.035);line-height:1;pointer-events:none}
+.skills{margin-top:18px;border:1px solid var(--line);border-radius:18px;padding:26px 28px;background:var(--bg2);display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.sk .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--tur);margin-bottom:10px}
+.sk p{margin:0;color:var(--fg2);font-size:13.5px;line-height:1.75}
+
+/* notes */
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.ncard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px 26px;cursor:pointer;position:relative;overflow:hidden;transition:all .35s var(--ease)}
+.ncard:hover{border-color:rgba(141,124,246,.35);transform:translateY(-2px)}
+.ncard::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--indigo),var(--rose));opacity:0;transition:opacity .3s}
+.ncard:hover::after,.ncard.open::after{opacity:1}
+.ncard.open{grid-column:1/-1;cursor:default;transform:none}
+.nmeta{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.ndate{font-family:var(--mono);font-size:11px;color:var(--fg3)}
+.ntags{display:flex;gap:5px;flex-wrap:wrap}
+.ntag{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.08em;padding:3px 8px;border-radius:4px}
+.ntag-zk{background:rgba(141,124,246,.12);color:var(--indigo)}
+.ntag-curve{background:rgba(233,166,58,.12);color:var(--tur)}
+.ntag-rust{background:rgba(217,96,122,.12);color:var(--rose)}
+.ntag-proof{background:rgba(88,199,180,.12);color:var(--teal)}
+.ntitle{font-family:var(--display);font-size:22px;font-weight:400;letter-spacing:-.01em;margin-bottom:8px;line-height:1.25}
+.npre{color:var(--fg2);font-size:13.5px;line-height:1.7;margin:0}
+.nmore{font-family:var(--mono);font-size:11px;color:var(--indigo);margin-top:14px;display:inline-flex;align-items:center;gap:4px;transition:gap .25s}
+.ncard:hover .nmore{gap:8px}
+.nbody{display:none;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.ncard.open .nbody{display:block}
+.ncard.open .npre,.ncard.open .nmore{display:none}
+.nb{color:var(--fg2);font-size:14px;line-height:1.85;max-width:760px}
+.nb h4{color:var(--fg);font-size:15px;font-weight:600;margin:20px 0 6px}
+.nb h4:first-child{margin-top:0}
+.nb p{margin:0 0 12px}
+.nb ul{margin:0 0 12px;padding-left:18px}
+.nb li{margin-bottom:4px}
+.nb .m{font-family:var(--mono);font-size:12px;color:var(--fg);background:rgba(141,124,246,.1);padding:1px 5px;border-radius:3px;white-space:nowrap}
+.nb .mb{display:block;font-family:var(--mono);font-size:13px;color:var(--fg);background:var(--elev);padding:14px 18px;border-radius:8px;border:1px solid var(--line);margin:12px 0;text-align:center;line-height:2;overflow-x:auto}
+.nb .v{font-style:italic;color:var(--indigo)}
+.nb pre{background:var(--elev);border:1px solid var(--line);border-radius:8px;padding:14px 18px;margin:12px 0;overflow-x:auto;line-height:1.7}
+.nb code{font-family:var(--mono);font-size:11.5px}
+.nb pre code{color:var(--fg2)}
+.nb .kw{color:#c792ea}.nb .fn{color:#82aaff}.nb .ty{color:#ffcb6b}.nb .cm{color:#6b6256;font-style:italic}.nb .st{color:#c3e88d}.nb .nr{color:#f78c6c}
+.coll{font-family:var(--mono);font-size:11px;color:var(--indigo);margin-top:16px;display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+.coll:hover{text-decoration:underline}
+
+/* contact */
+.contact{padding-block:140px 90px;position:relative;overflow:hidden}
+.contact h2{font-family:var(--display);font-weight:300;font-size:clamp(44px,8vw,110px);letter-spacing:-.04em;line-height:.98;margin:0}
+.contact h2 em{font-style:italic;font-weight:400;color:var(--tur)}
+.contact p{color:var(--fg2);font-size:clamp(16px,1.7vw,19px);max-width:560px;margin:28px 0 0;line-height:1.65}
+.mail{margin-top:36px;display:inline-flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 22px;background:var(--surface)}
+.mail code{font-family:var(--mono);font-size:14px;color:var(--fg)}
+.mail button{border:none;background:var(--fg);color:var(--bg);font-weight:600;font-size:12.5px;padding:10px 16px;border-radius:999px;cursor:pointer;transition:all .3s}
+.mail button:hover{background:#fff}
+.contact-links{display:flex;flex-wrap:wrap;gap:22px;margin-top:40px}
+.contact-links a{font-size:14px;font-weight:500;color:var(--fg2);display:inline-flex;align-items:center;gap:6px;transition:color .25s}
+.contact-links a:hover{color:var(--tur)}
+.contact-links a::after{content:'↗';font-size:12px;color:var(--fg3)}
+.footer{border-top:1px solid var(--line);padding:30px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:11px;color:var(--fg3);letter-spacing:.04em}
+.footer em{color:var(--tur);font-style:normal}
+
+/* responsive */
+@media(max-width:980px){
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  .pgrid{grid-template-columns:1fr 1fr}
+  .feat{grid-template-columns:1fr}
+  .feat-screen{border-left:none;border-top:1px solid var(--line)}
+  .early-grid{grid-template-columns:1fr}
+  .rr{grid-template-columns:1fr}
+  .skills{grid-template-columns:1fr 1fr}
+  .xp{grid-template-columns:120px 1fr}.xp-line,.xp-fill{left:120px}
+}
+@media(max-width:680px){
+  .sec{padding-block:80px}
+  .sec-head{grid-template-columns:1fr;gap:12px;margin-bottom:36px}
+  .hero{padding-block:100px 110px}
+  .hero-meta{flex-direction:column;gap:6px}
+  .hero-coord{display:none}
+  .pgrid{grid-template-columns:1fr}
+  .edu{grid-template-columns:1fr}
+  .skills{grid-template-columns:1fr}
+  .xp{grid-template-columns:1fr}.xp-line,.xp-fill{left:0}
+  .xp-when{text-align:left;padding:30px 0 0 20px}
+  .xp-body{padding:8px 0 30px 20px}
+  .xp-body::before{left:-5px;top:14px}
+  .patent{grid-template-columns:1fr;gap:14px}.patent .no{text-align:left}
+  .aw{grid-template-columns:1fr}
+  .nav-in{gap:12px}
+  .nav-name{white-space:nowrap;font-size:15px}
+  .nav-links{gap:14px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:8px 0}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{font-size:12px}
+  .eyebrow{align-items:flex-start;line-height:1.6}.eyebrow .dot{margin-top:6px;flex-shrink:0}
+  .ncard.open{grid-column:auto}
+  .feat-body,.feat-screen{padding:30px 24px}
+  .stats{grid-template-columns:1fr 1fr}
+  .mail{flex-wrap:wrap;padding:12px 14px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .about-words .w{opacity:1!important;filter:none!important}
+  .ticker-track{animation:none}
+  #kolam{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="prog" id="prog"></div>
+
+<nav class="nav" id="nav"><div class="nav-glass"></div><div class="wrap nav-in">
+  <a href="#top" class="nav-name"><span class="nm-full">Amudhan</span><span class="nm-short">A</span> <em>M.</em></a>
+  <div class="nav-links">
+    <a href="#about" data-n>About</a>
+    <a href="#work" data-n>Work</a>
+    <a href="#experience" data-n>Experience</a>
+    <a href="#research" data-n>Research</a>
+    <a href="#education" data-n>Education</a>
+    <a href="#notes" data-n>Notes</a>
+    <a href="#contact" data-n>Contact</a>
+  </div>
+</div></nav>
+
+<!-- ══ HERO ══ -->
+<header class="hero" id="top">
+  <canvas id="kolam" aria-hidden="true"></canvas>
+  <div class="hero-fade"></div>
+  <div class="wrap hero-in">
+    <div class="eyebrow" id="eyebrow"><span class="dot"></span> New York · open to backend, full-stack &amp; crypto roles</div>
+    <h1 id="h1">
+      <span class="ln"><span>Amudhan</span></span>
+      <span class="ln"><span>Muthaiah<em>.</em></span></span>
+    </h1>
+    <p class="hero-sub" id="hsub">I build systems that have to actually work — <b>backend at scale</b> at IBM, <b>EVM infrastructure</b> at Sahara AI, and <b>zero-knowledge proofs in Rust</b> at NYU Courant. Three hackathon wins, two papers, one patent, and a habit of shipping something real by Sunday.</p>
+    <div class="hero-btns" id="hbtns">
+      <a class="btn btn-fill" href="#work">See the work</a>
+      <a class="btn" href="https://github.com/amudhan23" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="https://linkedin.com/in/amudhanmuthaiah" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </div>
+  <div class="hero-meta" id="hmeta">
+    <span><b>MS CS</b> · NYU Courant</span>
+    <span><b>B.Tech CSE</b> · IIT Mandi</span>
+    <span><b>Ex-IBM</b> · 3.5 yrs</span>
+  </div>
+  <div class="hero-coord" id="hcoord">40.7291° N, 73.9965° W<br>கோலம் · scroll ↓</div>
+</header>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker">
+  <span>IBM</span><span>NYU Courant</span><span>Sahara AI</span><span>ETHDenver Winner</span><span>Monad Winner</span><span>ETHGlobal NYC</span><span>IIT Mandi</span><span>ISI Kolkata</span><span>Springer DESRIST</span><span>IEEE COMSNETS</span><span>India Patent 372004</span><span>Rust · Java · TypeScript</span><span>Bulletproofs · RISC Zero · ERC-4337</span>
+</div></div>
+
+<main class="wrap">
+
+<!-- ══ ABOUT ══ -->
+<section class="sec" id="about">
+  <div class="sec-head">
+    <div class="sec-num">௦௧<small>01 — About</small></div>
+    <h2>From the hills of <em>Mandi</em> to the grid of <em>Manhattan</em>.</h2>
+  </div>
+  <div class="about-grid">
+    <div>
+      <p class="about-words" id="about-words">I'm a software engineer who likes the parts of the stack where <em>correctness is non-negotiable</em> — production backends, on-chain money, and cryptographic proofs. I studied computer science at IIT Mandi, spent three and a half years at IBM Bengaluru owning Java services that handled millions of transactions a day, then moved to New York for a master's at NYU Courant and fell into applied cryptography.</p>
+      <p class="about-p">At Courant I implemented Bulletproofs in Rust and I'm now extending that work into distributed key generation as a research affiliate. In between: account-abstraction and cross-chain infrastructure at Sahara AI, winning hackathon tracks at ETHDenver and Monad, and shipping a full marketplace solo in one weekend at ETHGlobal NYC. Before any of that I co-founded a road-safety startup in college that ended up with a granted Indian patent.</p>
+      <p class="about-p">My thing is taking an idea on a Friday night and having something real by Sunday.</p>
+    </div>
+    <div class="stats" id="stats">
+      <div class="stat"><div class="v"><b>3.5</b> yrs</div><div class="l">Production engineering at IBM</div></div>
+      <div class="stat"><div class="v"><b>3</b>×</div><div class="l">Hackathon wins</div></div>
+      <div class="stat"><div class="v"><b>50k</b></div><div class="l">Lines migrated, zero downtime</div></div>
+      <div class="stat"><div class="v"><b>2</b> + <b>1</b></div><div class="l">Published papers + granted patent</div></div>
+      <div class="now">
+        <div class="k">Now</div>
+        <p>Building <b>Commentator</b> (AI sports commentary in your own language), doing <b>ZK research</b> at Courant, and looking for a team that ships hard things.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WORK ══ -->
+<section class="sec" id="work">
+  <div class="sec-head">
+    <div class="sec-num">௦௨<small>02 — Work</small></div>
+    <div>
+      <h2>Things I've <em>shipped</em>.</h2>
+      <p class="sec-sub">Hackathon winners, research code, and weekend builds. Most of it is on GitHub.</p>
+    </div>
+  </div>
+
+  <div class="filters" id="pfilter">
+    <button class="fbtn on" data-f="all">All</button>
+    <button class="fbtn" data-f="zk">Zero-knowledge</button>
+    <button class="fbtn" data-f="chain">Blockchain</button>
+    <button class="fbtn" data-f="ai">AI</button>
+    <button class="fbtn" data-f="systems">Systems</button>
+  </div>
+
+  <!-- featured -->
+  <article class="feat" id="feat" data-cat="ai">
+    <div class="feat-body">
+      <div class="feat-tag">Featured · 2026 <span class="live"><i></i>live</span></div>
+      <h3>Commen<em>tator</em></h3>
+      <p>A billion sports fans never get commentary in their language. Commentator watches the actual match footage — not a stats feed — picks the moments that matter, and calls them live in whatever language, style and voice you want. Fifteen languages so far; the Tamil and Telugu cricket commentary is the beachhead.</p>
+      <p>Built in two days with heavy AI tooling. The hard part is real-time video understanding and latency, which is where the systems background pays off.</p>
+      <div class="chips"><span class="chip">Multimodal AI</span><span class="chip">Real-time video</span><span class="chip">TTS</span><span class="chip">Node.js</span><span class="chip">15 languages</span></div>
+      <div class="feat-links">
+        <a class="btn btn-fill" href="https://commentator.onrender.com" target="_blank" rel="noopener">Try it live ↗</a>
+        <a class="btn" href="https://github.com/amudhan23/commentator" target="_blank" rel="noopener">Source ↗</a>
+      </div>
+    </div>
+    <div class="feat-screen">
+      <div class="term">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <span class="ln"><span class="k">$</span> commentator --watch match.mp4 --lang <span class="t" id="tlang">tamil</span></span>
+        <span class="ln"><span class="k">›</span> <span class="v">frame 18:42</span> <span class="k">·</span> <span class="ok">event: boundary</span></span>
+        <span class="ln"><span class="k">›</span> <span class="v">frame 19:05</span> <span class="k">·</span> <span class="ok">event: wicket</span></span>
+        <span class="ln"><span class="k">›</span> style=<span class="v">tactical</span> voice=<span class="v">yours</span> latency=<span class="v">low</span></span>
+        <span class="ln"><span class="k">›</span> calling it in <span class="lang" id="tlang2">Tamil</span><span class="cur"></span></span>
+      </div>
+    </div>
+  </article>
+
+  <div class="pgrid" id="pgrid">
+
+    <article class="pcard" data-cat="zk chain">
+      <div class="top"><span class="tag">ETHDenver 2026</span><span class="win">ADI track winner</span></div>
+      <h3>ZK-Sortition</h3>
+      <p>Trustless DAO committee selection inside a RISC Zero zkVM: verifiably random, no trusted party, no stakes revealed. Produces a Groth16 proof settled on Base Sepolia, with a custom journal format to get around the Serde-vs-ABI padding mismatch.</p>
+      <div class="foot"><div class="chips"><span class="chip">Rust</span><span class="chip">RISC Zero</span><span class="chip">Groth16</span><span class="chip">Base</span></div>
+      <a class="plink" href="https://github.com/amudhan23/ETHDenver_ZK_Final" target="_blank" rel="noopener">Repo →</a></div>
+    </article>
+
+    <article class="pcard" data-cat="zk chain">
+      <div class="top"><span class="tag">Monad hackathon · 2026</span><span class="win">Track winner</span></div>
+      <h3>Dark Forest Bounties</h3>
+      <p>A ZK-settled, cross-chain bounty marketplace. Each bounty carries its own target and invariant; the proof binds bounty ID and hunter, payout sits in escrow, and the exploit is encrypted to the poster so they actually receive the fix. Shipped end to end in 48 hours.</p>
+      <div class="foot"><div class="chips"><span class="chip">RISC Zero</span><span class="chip">Monad</span><span class="chip">Solidity</span></div>
+      <div class="plinks"><a class="plink" href="https://github.com/amudhan23/bounty_contract" target="_blank" rel="noopener">Contract →</a><a class="plink" href="https://github.com/amudhan23/bounty_prover" target="_blank" rel="noopener">Prover →</a><a class="plink" href="https://github.com/amudhan23/bounty_frontend" target="_blank" rel="noopener">Frontend →</a></div></div>
+    </article>
+
+    <article class="pcard" data-cat="chain">
+      <div class="top"><span class="tag">ETHGlobal NYC 2026</span><span class="win solo">Built solo · 48h</span></div>
+      <h3>AccessMint</h3>
+      <p>A tokenized API marketplace: providers list endpoints, buyers purchase metered access, settlement on Hedera, World ID for identity, and an immutable audit log on every transaction. React front, Express back, PostgreSQL — the whole stack, alone, in a weekend.</p>
+      <div class="foot"><div class="chips"><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Node</span><span class="chip">Hedera</span></div>
+      <a class="plink" href="https://github.com/amudhan23/accessMint" target="_blank" rel="noopener">Repo →</a></div>
+    </article>
+
+    <article class="pcard" data-cat="zk">
+      <div class="top"><span class="tag">NYU Courant · research</span></div>
+      <h3>Bulletproofs in Rust</h3>
+      <p>An open-source implementation of Bulletproofs with R1CS constraints on arkworks, plus a custom benchmarking harness that measures proof generation across constraint counts. Written to understand the protocol by building it, not by reading about it.</p>
+      <div class="foot"><div class="chips"><span class="chip">Rust</span><span class="chip">arkworks</span><span class="chip">R1CS</span></div>
+      <a class="plink" href="https://github.com/amudhan23/bulletProofRust" target="_blank" rel="noopener">Repo →</a></div>
+    </article>
+
+    <article class="pcard" data-cat="zk">
+      <div class="top"><span class="tag">Threshold cryptography</span><span class="win wip">In progress</span></div>
+      <h3>Golden DKG</h3>
+      <p>Extending the Bulletproofs work toward distributed key generation and threshold signatures — reimplementing the core primitives to see the tradeoffs firsthand rather than taking them on faith.</p>
+      <div class="foot"><div class="chips"><span class="chip">Rust</span><span class="chip">DKG</span><span class="chip">VSS</span></div>
+      <a class="plink" href="https://github.com/amudhan23/golden-dkg" target="_blank" rel="noopener">Repo →</a></div>
+    </article>
+
+    <article class="pcard" data-cat="systems">
+      <div class="top"><span class="tag">Rust · Tokio · Hyper</span></div>
+      <h3>req-guard</h3>
+      <p>An async, high-throughput HTTP proxy that validates every incoming request against configurable rules and rejects bad traffic before it reaches backend services. Arc-shared config, generic forwarding over Hyper's Body trait, built for low-latency concurrent flows.</p>
+      <div class="foot"><div class="chips"><span class="chip">Rust</span><span class="chip">Tokio</span><span class="chip">Hyper</span></div>
+      <a class="plink" href="https://github.com/amudhan23/req-guard" target="_blank" rel="noopener">Repo →</a></div>
+    </article>
+
+    <article class="pcard" data-cat="ai chain systems">
+      <div class="top"><span class="tag">Agent security</span></div>
+      <h3>IntentGuard</h3>
+      <p>An intent-validation layer for AI agents: every action an agent wants to take is checked against a declared intent before it executes, with an on-chain audit trail of what was allowed and what was blocked. Rust core.</p>
+      <div class="foot"><div class="chips"><span class="chip">Rust</span><span class="chip">AI agents</span><span class="chip">On-chain audit</span></div>
+      <a class="plink" href="https://github.com/amudhan23" target="_blank" rel="noopener">GitHub →</a></div>
+    </article>
+
+    <article class="pcard" data-cat="systems">
+      <div class="top"><span class="tag">C++ · CUDA</span></div>
+      <h3>GPU Physics Engine</h3>
+      <p>A real-time parallel physics simulation with hand-written CUDA kernels and manual memory management. Profiling in Nsight showed the bottleneck was memory bandwidth, not compute; fixing the access patterns gave a 4× speedup and a steady 60+ FPS.</p>
+      <div class="foot"><div class="chips"><span class="chip">CUDA</span><span class="chip">Nsight</span><span class="chip">C++</span></div>
+      <a class="plink" href="https://github.com/iiiian/silk_physics" target="_blank" rel="noopener">Repo →</a></div>
+    </article>
+
+    <article class="pcard" data-cat="systems">
+      <div class="top"><span class="tag">Java · Hadoop · Trino</span></div>
+      <h3>Distributed Data Pipeline</h3>
+      <p>A multi-stage MapReduce pipeline over 8.17 GB / 48M rows that joins four datasets into a weighted index. Found and fixed a silent join-correctness bug spanning all four, then built Trino/Hive analytics over 16.8M+ rows.</p>
+      <div class="foot"><div class="chips"><span class="chip">MapReduce</span><span class="chip">HDFS</span><span class="chip">Hive</span><span class="chip">Trino</span></div>
+      <span class="plink off">Coursework</span></div>
+    </article>
+
+    <article class="pcard" data-cat="systems">
+      <div class="top"><span class="tag">2018 – 2020 · co-founder</span><span class="win">Patented</span></div>
+      <h3>Smart Roads</h3>
+      <p>A MEMS-based vehicle-detection system that warns drivers of oncoming traffic at blind mountain turns. Funded by IIT Mandi's Design &amp; Innovation Centre, won the Himalayan Innovation Challenge, and was granted Indian Patent No. 372004.</p>
+      <div class="foot"><div class="chips"><span class="chip">Embedded</span><span class="chip">MEMS</span><span class="chip">Road safety</span></div>
+      <span class="plink off">Patent 372004</span></div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+<section class="sec" id="experience">
+  <div class="sec-head">
+    <div class="sec-num">௦௩<small>03 — Experience</small></div>
+    <h2>Where I've <em>worked</em>.</h2>
+  </div>
+
+  <div class="xp" id="xp">
+    <div class="xp-line"></div><div class="xp-fill" id="xpfill"></div>
+
+    <div class="xp-item">
+      <div class="xp-when"><b>Jul 2026 — now</b>New York</div>
+      <div class="xp-body">
+        <div class="xp-role">Research Affiliate</div>
+        <div class="xp-co">NYU Courant Institute <span>applied cryptography</span></div>
+        <ul>
+          <li>Implementing <b>Bulletproofs with R1CS</b> zero-knowledge proof systems in Rust / arkworks; built a custom benchmarking harness from scratch.</li>
+          <li>Extending the work into <b>distributed key generation</b> and threshold cryptography.</li>
+        </ul>
+        <div class="chips"><span class="chip">Rust</span><span class="chip">arkworks</span><span class="chip">ZK proofs</span><span class="chip">DKG</span></div>
+      </div>
+    </div>
+
+    <div class="xp-item">
+      <div class="xp-when"><b>Jun — Aug 2025</b>San Jose, CA</div>
+      <div class="xp-body">
+        <div class="xp-role">Blockchain Infrastructure Engineer</div>
+        <div class="xp-co">Sahara AI <span>internship</span></div>
+        <ul>
+          <li>Built production <b>ERC-4337 / EIP-7702 account abstraction</b> and custom Paymaster contracts on Base mainnet: gasless transactions and non-custodial wallet flows with real assets.</li>
+          <li>Built <b>cross-chain messaging with LayerZero</b> across Arbitrum, Optimism and Base; integrated Pimlico and Alchemy bundlers for reliable transaction submission.</li>
+          <li>Stress-tested third-party services under production load and designed <b>automatic failure-recovery paths</b> that removed a class of manual intervention.</li>
+        </ul>
+        <div class="chips"><span class="chip">Solidity</span><span class="chip">TypeScript</span><span class="chip">Viem</span><span class="chip">LayerZero</span><span class="chip">Base</span></div>
+      </div>
+    </div>
+
+    <div class="xp-item">
+      <div class="xp-when"><b>Jan 2021 — Jul 2024</b>Bengaluru, India</div>
+      <div class="xp-body">
+        <div class="xp-role">Software Engineer</div>
+        <div class="xp-co">IBM <span>3.5 years</span></div>
+        <ul>
+          <li>Built and operated distributed <b>Java Spring Boot</b> backend services and REST APIs handling millions of daily transactions, with full on-call ownership.</li>
+          <li>Owned the migration of a <b>50,000-line ColdFusion monolith</b> to Java microservices on Azure, from design to production cutover, with zero downtime and a 30% cut in maintenance cost.</li>
+          <li>Tuned PostgreSQL queries and introduced Redis caching, cutting API latency <b>40%</b>; built the team's <b>observability stack</b> (tracing, metrics, alerting) from scratch.</li>
+          <li>Raised automated test coverage 30% and cut production defects 25%; ran CI/CD with Jenkins, Docker and Kubernetes.</li>
+        </ul>
+        <div class="chips"><span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Kubernetes</span><span class="chip">Azure</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="xp-early">
+    <div class="k">Earlier · the blockchain years, 2018 – 2021</div>
+    <div class="early-grid">
+      <div class="early"><h4>Research Intern, ISI Kolkata</h4><div class="d">Three stints · 2018 – 2021</div><p>Blockchain-based healthcare data system and a consent-driven data marketplace using Merkle proofs, multisig and smart contracts — the work behind both publications. Solidity + Go.</p></div>
+      <div class="early"><h4>Co-founder, Smart Roads</h4><div class="d">Aug 2018 – Aug 2020</div><p>Accident-prevention system for blind turns. Funded by IIT Mandi's Design &amp; Innovation Centre; Himalayan Innovation Challenge winner; Indian patent granted.</p></div>
+      <div class="early"><h4>Engineer, Tokenizer</h4><div class="d">Dec 2019 – Jun 2020</div><p>Built and shipped a native token system and a geolocation-based NFT marketplace to production.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RESEARCH & RECOGNITION ══ -->
+<section class="sec" id="research">
+  <div class="sec-head">
+    <div class="sec-num">௦௪<small>04 — Research &amp; recognition</small></div>
+    <h2>Papers, prizes and a <em>patent</em>.</h2>
+  </div>
+  <div class="rr">
+    <div class="card">
+      <div class="k">Publications</div>
+      <div class="pub"><div class="t">Distributed Architecture for Data Trading with User Consent</div><div class="m"><b>Springer DESRIST</b> · Apr 2022 <code>// privacy-preserving data marketplace</code></div></div>
+      <div class="pub"><div class="t">Decentralized Secure &amp; Smart Healthcare System</div><div class="m"><b>IEEE COMSNETS</b> · Jan 2021 <code>// decentralized healthcare data</code></div></div>
+    </div>
+    <div class="card">
+      <div class="k">Hackathons &amp; awards</div>
+      <div class="aw">
+        <div class="awc"><div class="y">2026</div><div class="n">ETHDenver</div><div class="s"><b>ADI track winner</b> — ZK-Sortition</div></div>
+        <div class="awc"><div class="y">2026</div><div class="n">Monad Hackathon</div><div class="s"><b>Track winner</b> — Dark Forest Bounties</div></div>
+        <div class="awc"><div class="y">2026</div><div class="n">ETHGlobal NYC</div><div class="s">AccessMint — full stack, <b>solo, 48h</b></div></div>
+        <div class="awc"><div class="y">2019</div><div class="n">Himalayan Innovation Challenge</div><div class="s"><b>Winner</b> — Smart Roads</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="patent">
+    <div class="seal">§</div>
+    <div>
+      <div class="t">Vehicle-detection system for accident prevention at blind turns</div>
+      <div class="d">MEMS-sensor based early warning for mountain roads, built with Smart Roads at IIT Mandi. Granted by the Indian Patent Office.</div>
+    </div>
+    <div class="no">India Patent<b>No. 372004</b>Granted</div>
+  </div>
+</section>
+
+<!-- ══ EDUCATION ══ -->
+<section class="sec" id="education">
+  <div class="sec-head">
+    <div class="sec-num">௦௫<small>05 — Education</small></div>
+    <h2>Where I <em>studied</em>.</h2>
+  </div>
+  <div class="edu">
+    <div class="educ">
+      <div class="big">NYU</div>
+      <div class="yr">AUG 2024 — MAY 2026 · NEW YORK</div>
+      <h3>M.S. Computer Science</h3>
+      <div class="sch">New York University, Courant Institute of Mathematical Sciences</div>
+      <p>Applied Cryptography · Cryptography of Blockchains · Distributed Systems · Operating Systems · GPU Architecture &amp; Programming · Realtime &amp; Big Data Analytics · Algorithms · Computer Networking</p>
+    </div>
+    <div class="educ">
+      <div class="big">IIT</div>
+      <div class="yr">JUL 2017 — MAY 2021 · MANDI, INDIA</div>
+      <h3>B.Tech Computer Science &amp; Engineering</h3>
+      <div class="sch">Indian Institute of Technology Mandi</div>
+      <p>Co-founded Smart Roads out of the Design &amp; Innovation Centre; three research internships at the Indian Statistical Institute, Kolkata; two published papers before graduating.</p>
+    </div>
+  </div>
+  <div class="skills">
+    <div class="sk"><div class="k">Languages</div><p>Rust, Java, TypeScript, Python, Go, C++, CUDA, SQL, Bash</p></div>
+    <div class="sk"><div class="k">Blockchain &amp; crypto</div><p>ERC-4337 / EIP-7702, LayerZero, Viem, EVM chains, Solidity, zero-knowledge proofs, Bulletproofs, RISC Zero, DKG</p></div>
+    <div class="sk"><div class="k">Backend</div><p>Spring Boot, Node / Express, REST APIs, microservices, PostgreSQL, Redis, Hadoop / Trino / Hive</p></div>
+    <div class="sk"><div class="k">Infrastructure</div><p>AWS, Azure, Docker, Kubernetes, Jenkins CI/CD, observability (tracing, metrics, alerting), Linux</p></div>
+  </div>
+</section>
+
+<!-- ══ NOTES ══ -->
+<section class="sec" id="notes">
+  <div class="sec-head">
+    <div class="sec-num">௦௬<small>06 — Notes</small></div>
+    <div>
+      <h2>Things I'm <em>learning</em>.</h2>
+      <p class="sec-sub">Working notes from the zero-knowledge rabbit hole — elliptic curves, proof systems, and building with arkworks in Rust.</p>
+    </div>
+  </div>
+
+  <div class="filters" id="nfilter">
+    <button class="fbtn on" data-tag="all">All</button>
+    <button class="fbtn" data-tag="zk">Zero knowledge</button>
+    <button class="fbtn" data-tag="curves">Elliptic curves</button>
+    <button class="fbtn" data-tag="proofs">Bulletproofs</button>
+    <button class="fbtn" data-tag="rust">Rust / arkworks</button>
+  </div>
+
+  <div class="ngrid" id="ngrid">
+
+    <div class="ncard" data-tags="zk curves">
+      <div class="nmeta"><span class="ndate">Nov 2026</span><div class="ntags"><span class="ntag ntag-zk">ZK</span><span class="ntag ntag-curve">Elliptic curves</span></div></div>
+      <div class="ntitle">Why Edwards curves for zero-knowledge?</div>
+      <p class="npre">Edwards curves give you complete addition formulas — one formula handles every case, no branching, no edge cases. That's a big deal for ZK circuits where every branch costs constraints.</p>
+      <span class="nmore">Read note →</span>
+      <div class="nbody"><div class="nb">
+        <h4>The problem with Weierstrass</h4>
+        <p>The standard Weierstrass form <code class="m">y² = x³ + ax + b</code> has <em>incomplete</em> addition formulas. You need separate logic for point doubling, adding distinct points, and handling the point at infinity. In a ZK circuit, every branch costs constraints.</p>
+        <h4>Edwards curves fix this</h4>
+        <p>An Edwards curve is defined as:</p>
+        <div class="mb"><span class="v">x</span>² + <span class="v">y</span>² = 1 + <span class="v">d</span>·<span class="v">x</span>²<span class="v">y</span>²</div>
+        <p>The addition formula is <em>complete</em> — one formula handles every case, including doubling:</p>
+        <div class="mb">(<span class="v">x</span>₁, <span class="v">y</span>₁) + (<span class="v">x</span>₂, <span class="v">y</span>₂) = ( (<span class="v">x</span>₁<span class="v">y</span>₂ + <span class="v">y</span>₁<span class="v">x</span>₂) / (1 + <span class="v">d</span>·<span class="v">x</span>₁<span class="v">x</span>₂<span class="v">y</span>₁<span class="v">y</span>₂) ,&ensp; (<span class="v">y</span>₁<span class="v">y</span>₂ − <span class="v">x</span>₁<span class="v">x</span>₂) / (1 − <span class="v">d</span>·<span class="v">x</span>₁<span class="v">x</span>₂<span class="v">y</span>₁<span class="v">y</span>₂) )</div>
+        <h4>Why this matters for ZK</h4>
+        <ul>
+          <li>No edge cases → no branching → constant-time operations → side-channel resistance</li>
+          <li>Every Edwards curve is birationally equivalent to a Weierstrass curve, so no security is lost in the isomorphism</li>
+          <li>The twisted form <code class="m">ax² + y² = 1 + dx²y²</code> generalizes further</li>
+        </ul>
+        <h4>Curves in production</h4>
+        <p><strong>ed25519</strong> for signatures, <strong>Jubjub</strong> in Zcash, <strong>Baby Jubjub</strong> in Ethereum ZK circuits — all Edwards-form curves chosen for their complete addition laws and efficiency inside arithmetic circuits.</p>
+      </div><span class="coll">← Collapse</span></div>
+    </div>
+
+    <div class="ncard" data-tags="zk proofs">
+      <div class="nmeta"><span class="ndate">Nov 2026</span><div class="ntags"><span class="ntag ntag-zk">ZK</span><span class="ntag ntag-proof">Bulletproofs</span></div></div>
+      <div class="ntitle">Bulletproofs &amp; the inner product argument</div>
+      <p class="npre">Bulletproofs give you short, non-interactive zero-knowledge proofs without a trusted setup. The magic is the Inner Product Argument — each round halves the proof, giving logarithmic size.</p>
+      <span class="nmore">Read note →</span>
+      <div class="nbody"><div class="nb">
+        <h4>Pedersen commitments</h4>
+        <p>The building block. A Pedersen commitment to value <span class="v">v</span> with blinding factor <span class="v">r</span>:</p>
+        <div class="mb"><span class="v">C</span> = <span class="v">v</span>·<span class="v">G</span> + <span class="v">r</span>·<span class="v">H</span></div>
+        <p>Where <span class="v">G</span>, <span class="v">H</span> are generator points on an elliptic curve. Computationally binding, perfectly hiding. The key property — additively homomorphic:</p>
+        <div class="mb"><span class="v">C</span>(<span class="v">v</span>₁) + <span class="v">C</span>(<span class="v">v</span>₂) = <span class="v">C</span>(<span class="v">v</span>₁ + <span class="v">v</span>₂)</div>
+        <h4>The inner product argument</h4>
+        <p>IPA proves knowledge of vectors <strong>a</strong>, <strong>b</strong> such that ⟨<strong>a</strong>, <strong>b</strong>⟩ = <span class="v">c</span>. Each round halves the vector size, so a proof over <span class="v">n</span> elements takes only O(log <span class="v">n</span>) rounds — logarithmic proof size.</p>
+        <h4>Range proofs</h4>
+        <p>The killer app: proving <code class="m">v ∈ [0, 2ⁿ)</code> without revealing <span class="v">v</span>. Decompose in binary, represent as an arithmetic circuit, reduce to an inner product relation, apply IPA. The proof is only ~672 bytes for a 64-bit range.</p>
+        <h4>Bulletproofs vs SNARKs</h4>
+        <p><strong>No trusted setup ceremony.</strong> No toxic waste, no multi-party computation. Trade-off: verification is O(<span class="v">n</span>) instead of O(1). For most applications, the simpler trust model wins.</p>
+      </div><span class="coll">← Collapse</span></div>
+    </div>
+
+    <div class="ncard" data-tags="zk rust proofs">
+      <div class="nmeta"><span class="ndate">Nov 2026</span><div class="ntags"><span class="ntag ntag-rust">Rust</span><span class="ntag ntag-zk">ZK</span><span class="ntag ntag-proof">Bulletproofs</span></div></div>
+      <div class="ntitle">Pedersen commitments in arkworks</div>
+      <p class="npre">Implementing Pedersen commitments on the BLS12-381 curve using arkworks — Rust's ZK ecosystem. A minimal example showing the commitment scheme and its homomorphic property.</p>
+      <span class="nmore">Read note →</span>
+      <div class="nbody"><div class="nb">
+        <h4>arkworks ecosystem</h4>
+        <p>arkworks is the standard Rust library ecosystem for zero-knowledge proofs. It provides elliptic curve arithmetic, finite field operations, R1CS constraint systems, and proof system implementations.</p>
+        <h4>Minimal Pedersen on BLS12-381</h4>
+        <pre><code><span class="kw">use</span> <span class="ty">ark_bls12_381</span>::<span class="ty">G1Projective</span> <span class="kw">as</span> <span class="ty">G</span>;
+<span class="kw">use</span> <span class="ty">ark_ec</span>::<span class="ty">Group</span>;
+<span class="kw">use</span> <span class="ty">ark_std</span>::<span class="ty">UniformRand</span>;
+
+<span class="kw">fn</span> <span class="fn">pedersen_commit</span>(
+    v: <span class="ty">u64</span>,
+    r: <span class="ty">ark_bls12_381</span>::<span class="ty">Fr</span>,
+    g: <span class="ty">G</span>,
+    h: <span class="ty">G</span>,
+) -&gt; <span class="ty">G</span> {
+    <span class="cm">// C = v*G + r*H</span>
+    g.<span class="fn">mul_bigint</span>(&amp;[v]) + h * r
+}
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="kw">let</span> <span class="kw">mut</span> rng = <span class="ty">ark_std</span>::<span class="fn">test_rng</span>();
+    <span class="kw">let</span> g = <span class="ty">G</span>::<span class="fn">generator</span>();
+    <span class="kw">let</span> h = <span class="ty">G</span>::<span class="fn">rand</span>(&amp;<span class="kw">mut</span> rng);
+    <span class="kw">let</span> r = <span class="ty">ark_bls12_381</span>::<span class="ty">Fr</span>::<span class="fn">rand</span>(&amp;<span class="kw">mut</span> rng);
+
+    <span class="kw">let</span> c1 = <span class="fn">pedersen_commit</span>(<span class="nr">5</span>, r, g, h);
+    <span class="kw">let</span> c2 = <span class="fn">pedersen_commit</span>(<span class="nr">3</span>, r, g, h);
+    <span class="cm">// Homomorphic: c1 + c2 commits to 8</span>
+}</code></pre>
+        <h4>Why BLS12-381?</h4>
+        <p>The BLS12-381 curve provides a 255-bit scalar field — enough for 128-bit security. It supports efficient pairings (needed for some proof systems) and has wide ecosystem support across Ethereum, Zcash, and Filecoin.</p>
+        <h4>Homomorphic property</h4>
+        <p>Because Pedersen commitments are additively homomorphic, you can compute on committed values without revealing them. <code class="m">C(v₁) + C(v₂) = C(v₁ + v₂)</code> — this is the foundation for confidential transactions.</p>
+      </div><span class="coll">← Collapse</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section class="contact" id="contact">
+  <h2>Let's build <em>something</em><br>that has to work.</h2>
+  <p>Backend, full-stack, or crypto infrastructure — if your team ships hard things, I'd like to hear about it. Based in New York, happy to relocate for the right one.</p>
+  <div class="mail"><code id="mailtxt">amudhanmuthaiah@gmail.com</code><button id="copy" type="button">Copy</button></div>
+  <div class="contact-links">
+    <a href="https://github.com/amudhan23" target="_blank" rel="noopener">github.com/amudhan23</a>
+    <a href="https://linkedin.com/in/amudhanmuthaiah" target="_blank" rel="noopener">linkedin.com/in/amudhanmuthaiah</a>
+    <a href="https://commentator.onrender.com" target="_blank" rel="noopener">commentator.onrender.com</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>© <span id="yr">2026</span> Amudhan Muthaiah · New York</span>
+  <span>Built by hand with one HTML file. The dots are a <em>kolam</em>.</span>
+</footer>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<script>
+(function(){
+'use strict';
+const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+const hasGsap = typeof gsap !== 'undefined';
+if(hasGsap){ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin); }
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ───────── KOLAM CANVAS ─────────
+   A pulli (dot) lattice with threads that travel diagonally between dots and loop
+   around them, the way a kambi kolam is drawn. The cursor pulls the threads. */
+const cv = document.getElementById('kolam');
+if(cv && !reduce){
+  const ctx = cv.getContext('2d');
+  let W=0,H=0,dpr=1,S=46,cols=0,rows=0,ox=0,oy=0;
+  const mouse={x:-9999,y:-9999,on:false};
+  const walkers=[];
+  const N = 7, TRAIL = 26;
+
+  function size(){
+    dpr = Math.min(devicePixelRatio||1,2);
+    const r = cv.parentElement.getBoundingClientRect();
+    W=r.width; H=r.height;
+    cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    S = W<700?36:46;
+    cols=Math.ceil(W/S)+1; rows=Math.ceil(H/S)+1;
+    ox=(W-(cols-1)*S)/2; oy=(H-(rows-1)*S)/2;
+  }
+  // a cell is the square between 4 dots; centers at (i+.5)S
+  function cellCenter(i,j){ return {x:ox+(i+.5)*S, y:oy+(j+.5)*S}; }
+  function mkWalker(){
+    const i=Math.floor(Math.random()*(cols-1)), j=Math.floor(Math.random()*(rows-1));
+    const w={i,j,di:Math.random()<.5?1:-1,dj:Math.random()<.5?1:-1,t:0,speed:.012+Math.random()*.01,nodes:[],hue:Math.random()};
+    w.nodes.push(cellCenter(i,j));
+    return w;
+  }
+  function step(w){
+    // choose next cell: continue diagonal, or turn (loop around a dot)
+    let turn = Math.random()<.38;
+    if(mouse.on){
+      const c=cellCenter(w.i,w.j);
+      const dx=mouse.x-c.x, dy=mouse.y-c.y, d=Math.hypot(dx,dy);
+      if(d<220){ // steer toward cursor
+        const wantI=Math.sign(dx)||w.di, wantJ=Math.sign(dy)||w.dj;
+        if(wantI!==w.di && Math.random()<.7){ w.di=wantI; turn=false; }
+        else if(wantJ!==w.dj && Math.random()<.7){ w.dj=wantJ; turn=false; }
+      }
+    }
+    if(turn){ if(Math.random()<.5) w.di=-w.di; else w.dj=-w.dj; }
+    let ni=w.i+w.di, nj=w.j+w.dj;
+    if(ni<0||ni>cols-2){ w.di=-w.di; ni=w.i+w.di; }
+    if(nj<0||nj>rows-2){ w.dj=-w.dj; nj=w.j+w.dj; }
+    w.i=ni; w.j=nj;
+    w.nodes.push(cellCenter(ni,nj));
+    if(w.nodes.length>TRAIL) w.nodes.shift();
+  }
+  function init(){ size(); walkers.length=0; for(let k=0;k<N;k++){ const w=mkWalker(); for(let s=0;s<TRAIL;s++) step(w); walkers.push(w);} }
+  init();
+  let rt; addEventListener('resize',()=>{clearTimeout(rt); rt=setTimeout(init,150);});
+  const hero=document.getElementById('top');
+  hero.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect(); mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top; mouse.on=true;});
+  hero.addEventListener('pointerleave',()=>{mouse.on=false; mouse.x=-9999; mouse.y=-9999;});
+
+  let last=0, visible=true;
+  new IntersectionObserver(en=>{visible=en[0].isIntersecting;},{threshold:0}).observe(cv);
+
+  function draw(ts){
+    requestAnimationFrame(draw);
+    if(!visible) return;
+    const dt=Math.min(40,ts-last); last=ts;
+    ctx.clearRect(0,0,W,H);
+
+    // dots
+    for(let i=0;i<cols;i++) for(let j=0;j<rows;j++){
+      const x=ox+i*S, y=oy+j*S;
+      let a=.22, r=1.1;
+      if(mouse.on){ const d=Math.hypot(mouse.x-x,mouse.y-y); if(d<160){ const k=1-d/160; a+=k*.6; r+=k*1.6; } }
+      ctx.beginPath(); ctx.arc(x,y,r,0,6.283); ctx.fillStyle='rgba(233,166,58,'+a+')'; ctx.fill();
+    }
+
+    // threads
+    walkers.forEach(w=>{
+      w.t+=w.speed*dt/16;
+      if(w.t>=1){ w.t-=1; step(w); }
+      const pts=w.nodes.slice();
+      // interpolate head between last two nodes
+      const n=pts.length;
+      const a=pts[n-2], b=pts[n-1];
+      const head={x:a.x+(b.x-a.x)*w.t, y:a.y+(b.y-a.y)*w.t};
+      pts[n-1]=head;
+      // draw smoothed path with fading alpha
+      for(let k=1;k<pts.length-1;k++){
+        const p0=pts[k-1], p1=pts[k], p2=pts[k+1];
+        const m1={x:(p0.x+p1.x)/2,y:(p0.y+p1.y)/2}, m2={x:(p1.x+p2.x)/2,y:(p1.y+p2.y)/2};
+        const f=k/(pts.length-1);
+        const warm = w.hue<.7;
+        ctx.strokeStyle = warm ? 'rgba(239,125,58,'+(f*.55)+')' : 'rgba(141,124,246,'+(f*.5)+')';
+        ctx.lineWidth = .6 + f*1.1;
+        ctx.lineCap='round';
+        ctx.beginPath(); ctx.moveTo(m1.x,m1.y); ctx.quadraticCurveTo(p1.x,p1.y,m2.x,m2.y); ctx.stroke();
+      }
+      ctx.beginPath(); ctx.arc(head.x,head.y,2.2,0,6.283); ctx.fillStyle=w.hue<.7?'#ffd27a':'#c3b7ff'; ctx.fill();
+    });
+
+    // cursor glow
+    if(mouse.on){
+      const g=ctx.createRadialGradient(mouse.x,mouse.y,0,mouse.x,mouse.y,180);
+      g.addColorStop(0,'rgba(233,166,58,.10)'); g.addColorStop(1,'rgba(233,166,58,0)');
+      ctx.fillStyle=g; ctx.fillRect(mouse.x-180,mouse.y-180,360,360);
+    }
+  }
+  requestAnimationFrame(draw);
+}
+
+/* ───────── TICKER: duplicate for seamless loop ───────── */
+const tk=document.getElementById('ticker'); if(tk){ tk.innerHTML += tk.innerHTML; }
+
+/* ───────── COMMENTATOR LANGUAGE TYPEWRITER ───────── */
+(function(){
+  const langs=['Tamil','Telugu','Hindi','Bengali','Marathi','Kannada','Malayalam','Spanish','Bahasa','Swahili','Portuguese','Arabic'];
+  const a=document.getElementById('tlang'), b=document.getElementById('tlang2');
+  if(!a||!b) return;
+  let i=0;
+  function type(word,el,cb){ let k=0; el.textContent=''; const t=setInterval(()=>{ el.textContent=word.slice(0,++k); if(k>=word.length){clearInterval(t); cb&&cb();} },55); }
+  function cycle(){ i=(i+1)%langs.length; const w=langs[i]; a.textContent=w.toLowerCase(); type(w,b,()=>setTimeout(cycle,1600)); }
+  setTimeout(cycle,2200);
+})();
+
+/* ───────── PROJECT FILTERS ───────── */
+document.querySelectorAll('#pfilter .fbtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#pfilter .fbtn').forEach(b=>b.classList.remove('on')); btn.classList.add('on');
+    const f=btn.dataset.f;
+    document.querySelectorAll('#pgrid .pcard, #feat').forEach(card=>{
+      const show = f==='all' || (card.dataset.cat||'').split(' ').includes(f);
+      card.style.display = show ? '' : 'none';
+      if(show && hasGsap && !reduce) gsap.from(card,{opacity:0,y:14,duration:.35,ease:'power2.out',overwrite:'auto'});
+    });
+    if(hasGsap) ScrollTrigger.refresh();
+  });
+});
+
+/* ───────── NOTES FILTER + EXPAND ───────── */
+document.querySelectorAll('#nfilter .fbtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#nfilter .fbtn').forEach(b=>b.classList.remove('on')); btn.classList.add('on');
+    const tag=btn.dataset.tag;
+    document.querySelectorAll('.ncard').forEach(card=>{
+      const show=tag==='all'||card.dataset.tags.split(' ').includes(tag);
+      card.style.display=show?'':'none';
+      if(show && hasGsap && !reduce) gsap.from(card,{opacity:0,y:12,duration:.3,ease:'power2.out',overwrite:'auto'});
+    });
+    if(hasGsap) ScrollTrigger.refresh();
+  });
+});
+document.querySelectorAll('.ncard').forEach(card=>{
+  card.addEventListener('click',e=>{
+    if(e.target.closest('.coll')){ card.classList.remove('open'); if(hasGsap) ScrollTrigger.refresh(); return; }
+    if(card.classList.contains('open')) return;
+    card.classList.add('open'); if(hasGsap) ScrollTrigger.refresh();
+  });
+});
+
+/* ───────── COPY EMAIL ───────── */
+const cp=document.getElementById('copy');
+if(cp){ cp.addEventListener('click',()=>{
+  const txt=document.getElementById('mailtxt').textContent;
+  const done=()=>{cp.textContent='Copied ✓'; setTimeout(()=>cp.textContent='Copy',1600);};
+  try{ navigator.clipboard.writeText(txt).then(done).catch(()=>{cp.textContent='Select & copy';}); }catch(_){ cp.textContent='Select & copy'; }
+});}
+
+/* ───────── 3D TILT on project cards (fine pointers only) ───────── */
+if(matchMedia('(pointer:fine)').matches && hasGsap && !reduce){
+  document.querySelectorAll('.pcard').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+      gsap.to(card,{rotateX:(y-.5)*-5,rotateY:(x-.5)*5,y:-4,duration:.35,ease:'power2.out',overwrite:'auto'});
+    });
+    card.addEventListener('mouseleave',()=>gsap.to(card,{rotateX:0,rotateY:0,y:0,duration:.5,ease:'power3.out',overwrite:'auto'}));
+  });
+}
+
+/* ───────── SMOOTH ANCHORS ───────── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href')); if(!t) return;
+    e.preventDefault();
+    if(hasGsap && !reduce) gsap.to(window,{scrollTo:{y:t,offsetY:70},duration:1,ease:'power3.inOut'});
+    else t.scrollIntoView({behavior:'smooth'});
+  });
+});
+
+if(!hasGsap || reduce){ document.getElementById('nav').classList.add('on'); return; }
+
+/* ───────── HERO ENTRANCE ───────── */
+const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+tl.from('#eyebrow',{y:14,opacity:0,duration:.6},.1)
+  .from('#h1 .ln span',{yPercent:110,duration:1,stagger:.12,ease:'power4.out'},.15)
+  .from('#hsub',{y:20,opacity:0,duration:.7},.6)
+  .from('#hbtns',{y:16,opacity:0,duration:.6},.75)
+  .from('#hmeta, #hcoord',{opacity:0,duration:.8},.95);
+
+/* parallax */
+gsap.to('.hero-in',{y:-70,opacity:.2,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+gsap.to('#kolam',{y:-40,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+
+/* nav + progress */
+ScrollTrigger.create({trigger:'.hero',start:'bottom 85%',
+  onEnter:()=>document.getElementById('nav').classList.add('on'),
+  onLeaveBack:()=>document.getElementById('nav').classList.remove('on')});
+gsap.to('#prog',{width:'100%',ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
+
+/* section heads */
+document.querySelectorAll('.sec-head').forEach(el=>{
+  gsap.from(el.children,{y:26,opacity:0,duration:.8,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 85%'}});
+});
+
+/* about word reveal */
+const aw=document.getElementById('about-words');
+if(aw){
+  const html=aw.innerHTML;
+  // wrap words but keep <em> inline
+  aw.innerHTML = html.replace(/(<[^>]+>)|([^\s<]+)/g,(m,tag,w)=> tag ? tag : '<span class="w">'+w+'</span>');
+  gsap.to(aw.querySelectorAll('.w'),{opacity:1,filter:'blur(0px)',stagger:.014,ease:'none',scrollTrigger:{trigger:'#about',start:'top 70%',end:'top 15%',scrub:1}});
+}
+gsap.from('.about-p',{y:20,opacity:0,duration:.7,stagger:.15,ease:'power3.out',scrollTrigger:{trigger:'.about-p',start:'top 85%'}});
+gsap.from('#stats > *',{y:26,opacity:0,duration:.6,stagger:.08,ease:'power3.out',scrollTrigger:{trigger:'#stats',start:'top 82%'}});
+
+/* work */
+gsap.from('#feat',{y:40,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'#feat',start:'top 85%'}});
+gsap.from('#pgrid .pcard',{y:30,opacity:0,duration:.6,stagger:.07,ease:'power3.out',scrollTrigger:{trigger:'#pgrid',start:'top 85%'}});
+
+/* experience timeline */
+const xp=document.getElementById('xp');
+if(xp){
+  gsap.to('#xpfill',{height:'100%',ease:'none',scrollTrigger:{trigger:xp,start:'top 60%',end:'bottom 60%',scrub:.5}});
+  document.querySelectorAll('.xp-item').forEach(it=>{
+    const body=it.querySelector('.xp-body');
+    gsap.from([it.querySelector('.xp-when'),body],{y:24,opacity:0,duration:.7,stagger:.08,ease:'power3.out',scrollTrigger:{trigger:body,start:'top 85%'}});
+    ScrollTrigger.create({trigger:body,start:'top 60%',end:'bottom 60%',onToggle:s=>it.classList.toggle('lit',s.isActive)});
+  });
+  gsap.from('.xp-early',{y:24,opacity:0,duration:.7,ease:'power3.out',scrollTrigger:{trigger:'.xp-early',start:'top 88%'}});
+}
+
+/* research / education / notes */
+gsap.from('.rr .card',{y:26,opacity:0,duration:.7,stagger:.12,ease:'power3.out',scrollTrigger:{trigger:'.rr',start:'top 85%'}});
+gsap.from('.patent',{y:22,opacity:0,duration:.7,ease:'power3.out',scrollTrigger:{trigger:'.patent',start:'top 90%'}});
+gsap.from('.edu .educ',{y:26,opacity:0,duration:.7,stagger:.12,ease:'power3.out',scrollTrigger:{trigger:'.edu',start:'top 85%'}});
+gsap.from('.skills',{y:22,opacity:0,duration:.7,ease:'power3.out',scrollTrigger:{trigger:'.skills',start:'top 90%'}});
+gsap.from('#ngrid .ncard',{y:26,opacity:0,duration:.6,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'#ngrid',start:'top 85%'}});
+gsap.from('.contact > *',{y:30,opacity:0,duration:.9,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'.contact',start:'top 75%'}});
+
+/* nav active */
+['about','work','experience','research','education','notes','contact'].forEach(id=>{
+  ScrollTrigger.create({trigger:'#'+id,start:'top 45%',end:'bottom 45%',
+    onToggle:s=>{ if(s.isActive) document.querySelectorAll('[data-n]').forEach(a=>a.classList.toggle('act',a.getAttribute('href')==='#'+id)); }});
+});
+})();
+</script>
+</body>
+</html>
