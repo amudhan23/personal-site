@@ -128,6 +128,23 @@ footer a{color:var(--ink2)}footer a:hover{color:var(--ink)}
 .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.2s .3s cubic-bezier(.4,0,.2,1) forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
 
+
+/* hidden lattice revealed by the cursor */
+#lattice{position:fixed;inset:0;z-index:-1;pointer-events:none;color:var(--ink)}
+/* mark redraws on hover */
+.mark:hover .draw{animation:draw 1.6s cubic-bezier(.4,0,.2,1) forwards}
+.mark .draw{animation-fill-mode:forwards}
+/* Tamil numeral ghost beside section numbers */
+.sh .num{position:relative}
+.sh .num::after{content:attr(data-ta);position:absolute;left:30px;top:-3px;font-family:var(--serif);font-size:16px;color:var(--ink3);opacity:.5;letter-spacing:0}
+/* foot kolam draws when it arrives */
+.kolam-foot path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.4s cubic-bezier(.4,0,.2,1)}
+.kolam-foot.in path{stroke-dashoffset:0}
+.kolam-foot{color:var(--ink3)}
+/* headline: the italic clause carries a hand-drawn rule */
+.intro h1 em{position:relative;white-space:normal}
+.now-line{color:var(--ink3)}
+
 @media(max-width:600px){
   body{font-size:17px}
   .page{padding-top:36px}
@@ -142,6 +159,7 @@ footer a{color:var(--ink2)}footer a:hover{color:var(--ink)}
 </style>
 </head>
 <body>
+<canvas id="lattice" aria-hidden="true"></canvas>
 <div class="page">
 
 <header class="fade">
@@ -175,7 +193,7 @@ footer a{color:var(--ink2)}footer a:hover{color:var(--ink)}
 
 <!-- WORK -->
 <section id="work">
-  <div class="sh"><span class="num">01</span><h2>Selected work</h2></div>
+  <div class="sh"><span class="num" data-ta="௧">01</span><h2>Selected work</h2></div>
   <ul class="idx">
     <li><div class="row">
       <span class="num">2026</span>
@@ -239,7 +257,7 @@ footer a{color:var(--ink2)}footer a:hover{color:var(--ink)}
 
 <!-- EXPERIENCE -->
 <section id="experience">
-  <div class="sh"><span class="num">02</span><h2>Experience</h2></div>
+  <div class="sh"><span class="num" data-ta="௨">02</span><h2>Experience</h2></div>
   <div class="xp">
     <article>
       <div class="when">Jul 2026 —<br>present</div>
@@ -271,7 +289,7 @@ footer a{color:var(--ink2)}footer a:hover{color:var(--ink)}
 
 <!-- RESEARCH -->
 <section id="research">
-  <div class="sh"><span class="num">03</span><h2>Research &amp; recognition</h2></div>
+  <div class="sh"><span class="num" data-ta="௩">03</span><h2>Research &amp; recognition</h2></div>
   <div class="two">
     <div>
       <h3>Publications</h3>
@@ -312,7 +330,7 @@ footer a{color:var(--ink2)}footer a:hover{color:var(--ink)}
 
 <!-- NOTES -->
 <section id="notes">
-  <div class="sh"><span class="num">04</span><h2>Notes</h2></div>
+  <div class="sh"><span class="num" data-ta="௪">04</span><h2>Notes</h2></div>
   <p class="lede">Working notes from the zero‑knowledge rabbit hole. Written for myself; published in case they're useful.</p>
   <div class="idx" style="border-top:1px solid var(--rule)">
 
@@ -397,18 +415,18 @@ footer a{color:var(--ink2)}footer a:hover{color:var(--ink)}
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="sh"><span class="num">05</span><h2>Contact</h2></div>
+  <div class="sh"><span class="num" data-ta="௫">05</span><h2>Contact</h2></div>
   <p class="lede first">If your team ships hard things — backend, full‑stack, or crypto infrastructure — I'd like to hear about it. Based in New York; happy to relocate for the right one.</p>
   <p><a class="u" href="mailto:amudhanmuthaiah@gmail.com">amudhanmuthaiah@gmail.com</a></p>
 </section>
 
-<svg class="kolam-foot" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+<svg class="kolam-foot" id="kfoot" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
   <g fill="currentColor" stroke="none"><circle cx="50" cy="26" r="2.6"/><circle cx="74" cy="50" r="2.6"/><circle cx="50" cy="74" r="2.6"/><circle cx="26" cy="50" r="2.6"/><circle cx="72" cy="28" r="2.6"/><circle cx="72" cy="72" r="2.6"/><circle cx="28" cy="72" r="2.6"/><circle cx="28" cy="28" r="2.6"/></g>
-  <path d="M50 50 C 50 10, 90 10, 90 50 C 90 90, 50 90, 50 50 C 50 10, 10 10, 10 50 C 10 90, 50 90, 50 50 C 90 50, 90 10, 50 10 C 10 10, 10 50, 50 50 C 90 50, 90 90, 50 90 C 10 90, 10 50, 50 50 Z"/>
+  <path pathLength="1" d="M50 50 C 50 10, 90 10, 90 50 C 90 90, 50 90, 50 50 C 50 10, 10 10, 10 50 C 10 90, 50 90, 50 50 C 90 50, 90 10, 50 10 C 10 10, 10 50, 50 50 C 90 50, 90 90, 50 90 C 10 90, 10 50, 50 50 Z"/>
 </svg>
 
 <footer>
-  <span>Amudhan Muthaiah · New York · <span id="yr">2026</span></span>
+  <span>Amudhan Muthaiah · New York · <span id="yr">2026</span><br><span class="now-line" id="nowline"></span></span>
   <span><a href="https://github.com/amudhan23/personal-site" target="_blank" rel="noopener">Source</a> · set in Newsreader · the mark is a kolam</span>
 </footer>
 
@@ -420,6 +438,50 @@ const links=[...document.querySelectorAll('nav a')];
 const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));}})},{rootMargin:'-30% 0px -60% 0px'});
 secs.forEach(s=>s&&io.observe(s));
+
+// local time in New York, in words
+(function(){
+  const el=document.getElementById('nowline'); if(!el) return;
+  function tick(){
+    const d=new Date(); const t=d.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'});
+    const h=+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hour12:false}).format(d);
+    const part=h<5?'late night':h<12?'morning':h<17?'afternoon':h<21?'evening':'night';
+    el.textContent=`It's ${t} in New York — ${part}.`;
+  }
+  tick(); setInterval(tick,30000);
+})();
+// the foot kolam draws itself when it arrives
+(function(){
+  const k=document.getElementById('kfoot'); if(!k) return;
+  new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){k.classList.add('in');o.disconnect();}})},{threshold:.6}).observe(k);
+})();
+// a kolam dot lattice hidden in the paper, revealed under the cursor
+(function(){
+  if(!matchMedia('(pointer:fine)').matches || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const cv=document.getElementById('lattice'), ctx=cv.getContext('2d');
+  let W,H,dpr; const S=28, R=190; const m={x:-9999,y:-9999}; let raf=null, fade=0;
+  function size(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+  size(); addEventListener('resize',size);
+  const ink=()=>getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();
+  function draw(){
+    raf=null; ctx.clearRect(0,0,W,H);
+    if(fade<=0.01) return;
+    const col=ink(); const x0=Math.max(0,Math.floor((m.x-R)/S)*S), x1=Math.min(W,m.x+R), y0=Math.max(0,Math.floor((m.y-R)/S)*S), y1=Math.min(H,m.y+R);
+    for(let x=x0;x<=x1;x+=S) for(let y=y0;y<=y1;y+=S){
+      const d=Math.hypot(x-m.x,y-m.y); if(d>R) continue;
+      const k=(1-d/R); const a=k*k*.3*fade;
+      ctx.beginPath(); ctx.arc(x,y,1.1+k*.6,0,6.283); ctx.fillStyle=col; ctx.globalAlpha=a; ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    if(fade<1||raf) return;
+  }
+  function loop(){ if(!raf) raf=requestAnimationFrame(draw); }
+  addEventListener('pointermove',e=>{m.x=e.clientX;m.y=e.clientY; if(fade<1){fade=Math.min(1,fade+.08);} loop();});
+  addEventListener('pointerleave',()=>{fade=0;loop();});
+  document.addEventListener('mouseleave',()=>{fade=0;loop();});
+  addEventListener('scroll',loop,{passive:true});
+})();
+
 </script>
 </body>
 </html>
