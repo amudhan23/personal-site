@@ -4,280 +4,260 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Amudhan Muthaiah</title>
-<meta name="description" content="Amudhan Muthaiah — software engineer in New York, by way of Bengaluru and Mandi. Backend systems, EVM infrastructure, zero-knowledge proofs in Rust.">
+<meta name="description" content="Amudhan Muthaiah — software engineer and applied cryptography researcher in New York. Backend systems, EVM infrastructure, zero-knowledge proofs in Rust.">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=JetBrains+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400&display=swap">
 <style>
 :root{
-  --paper:#f5f1ea; --paper2:#ede8df; --ink:#1b1917; --ink2:#5d5852; --ink3:#948d83; --rule:#dcd6ca; --accent:#a8581c;
-  --serif:'Newsreader',Georgia,'Times New Roman',serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
-  --pad:max(24px,env(safe-area-inset-left,0px));
+  --paper:#faf8f3; --paper2:#f1ede4; --ink:#141312; --ink2:#55514b; --ink3:#8c877e; --rule:#dad5cb; --accent:#8a3b12;
+  --serif:'STIX Two Text','Times New Roman',Times,serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --col:600px; --margin:230px; --pad:max(24px,env(safe-area-inset-left,0px));
   color-scheme:light dark;
 }
-@media(prefers-color-scheme:dark){:root{--paper:#131211;--paper2:#1b1917;--ink:#ebe6dc;--ink2:#a59e93;--ink3:#6e685f;--rule:#2a2724;--accent:#d8945a}}
+@media(prefers-color-scheme:dark){:root{--paper:#121110;--paper2:#1a1816;--ink:#e9e4da;--ink2:#a8a197;--ink3:#6c665d;--rule:#2a2724;--accent:#d08a5a}}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;
-  font-feature-settings:"kern","liga","onum","pnum";-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17.5px;line-height:1.5;
+  font-feature-settings:"kern","liga","onum";-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
   padding:0 var(--pad) env(safe-area-inset-bottom,0px)}
 a{color:inherit;text-decoration:none}
-p{margin:0 0 1em}
-::selection{background:#e9d9c2;color:#1b1917}
-.u{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:var(--ink3);transition:text-decoration-color .2s}
+p{margin:0 0 .9em;hyphens:auto}
+::selection{background:#e5d7c3;color:#141312}
+.u{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:var(--ink3)}
 .u:hover{text-decoration-color:var(--ink)}
-#lattice{position:fixed;inset:0;z-index:-1;pointer-events:none;color:var(--ink)}
 
-/* frame: margin column + text column */
-.frame{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:240px minmax(0,640px);gap:80px;justify-content:center;padding:52px 0 110px}
-.col{min-width:0}
+/* running head, appears once the title block scrolls away */
+.running{position:fixed;top:0;left:0;right:0;z-index:20;padding:10px var(--pad);font-size:12.5px;letter-spacing:.08em;font-variant:small-caps;color:var(--ink3);background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);opacity:0;transform:translateY(-100%);transition:opacity .3s,transform .3s}
+.running.on{opacity:1;transform:none}
+.running .inner{max-width:calc(var(--col) + var(--margin));margin:0 auto;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.running a:hover{color:var(--ink)}
 
-/* masthead */
-.mast{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px;margin-bottom:96px}
-.mark{display:inline-flex;align-items:center;gap:12px}
-.mark svg{width:26px;height:26px;color:var(--accent)}
-.mark .nm{font-size:17px;font-weight:500}
+.paper{max-width:calc(var(--col) + var(--margin));margin:0 auto;padding:64px 0 120px}
+.body{max-width:var(--col);position:relative}
+
+/* title block */
+.title{text-align:center;margin:40px 0 56px;max-width:var(--col)}
+.title .orn{width:30px;height:30px;color:var(--accent);margin:0 auto 22px;display:block}
 .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.2s .3s cubic-bezier(.4,0,.2,1) forwards}
-.mark:hover .draw{animation:draw 1.6s cubic-bezier(.4,0,.2,1) forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
-.mast nav{display:flex;gap:22px;flex-wrap:wrap}
-.mast nav a{font-size:15px;color:var(--ink2);border-bottom:1px solid transparent}
-.mast nav a:hover{color:var(--ink);border-color:var(--rule)}
+.title h1{font-size:clamp(26px,3.8vw,34px);font-weight:500;line-height:1.22;margin:0 0 18px;text-wrap:balance}
+.title .author{font-size:18px;margin:0 0 4px}
+.title .affil{font-size:15px;color:var(--ink2);font-style:italic;margin:0 0 4px}
+.title .date{font-size:13px;color:var(--ink3);margin:0;font-variant:small-caps;letter-spacing:.08em}
+.abstract{margin:40px auto 0;max-width:520px;font-size:15.5px;line-height:1.5;color:var(--ink2);text-align:left}
+.abstract b{font-weight:600;color:var(--ink);font-variant:small-caps;letter-spacing:.06em;font-size:14px}
+.abstract .kw{margin-top:8px;font-size:14px}
+.abstract .kw b{font-weight:500;font-variant:normal;letter-spacing:0;font-style:italic}
+.links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:26px;font-size:14.5px;color:var(--ink2)}
 
-/* the route (sticky margin) */
-.route{position:sticky;top:48px;align-self:start}
-.route svg{width:100%;height:auto;overflow:visible;display:block}
-.route .line{stroke:var(--rule);stroke-width:1.2;fill:none}
-.route .line-done{stroke:var(--ink3);stroke-width:1.2;fill:none;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .25s linear}
-.route .st{fill:var(--paper);stroke:var(--ink3);stroke-width:1.2;transition:.3s}
-.route .st.on{fill:var(--accent);stroke:var(--accent)}
-.route .lbl{font-family:var(--serif);font-size:15px;fill:var(--ink2);transition:.3s}
-.route .lbl.on{fill:var(--ink)}
-.route .co{font-family:var(--mono);font-size:9.5px;fill:var(--ink3);letter-spacing:.05em}
-.route .side{fill:var(--ink3);font-family:var(--serif);font-style:italic;font-size:12px}
-.route .tick{stroke:var(--rule);stroke-width:1}
-.route .me{fill:var(--accent)}
-.route .me-ring{fill:none;stroke:var(--accent);stroke-width:1;opacity:.5}
-.route-foot{margin-top:18px;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--ink3);line-height:1.9}
-.route-foot b{font-weight:400;color:var(--ink2)}
+/* sections */
+section{margin-top:58px}
+h2{font-size:17.5px;font-weight:600;margin:0 0 14px}
+h2 .n{display:inline-block;width:2.2em;font-weight:500}
+h3{font-size:16.5px;font-weight:500;font-style:italic;margin:26px 0 8px}
+h3 .n{display:inline-block;width:2.6em;font-style:normal}
 
-/* intro */
-.intro h1{font-size:clamp(34px,4.6vw,46px);font-weight:300;line-height:1.14;letter-spacing:-.015em;margin:0 0 26px;text-wrap:balance;font-variation-settings:'opsz' 72}
-.intro p{color:var(--ink2);font-size:19px}
-.intro .links{margin-top:22px;display:flex;gap:22px;flex-wrap:wrap;font-size:16px}
-.intro .links a{color:var(--ink2)}.intro .links a:hover{color:var(--ink)}
+/* result blocks, theorem-style */
+.result{margin:0 0 18px;position:relative}
+.result .lab{font-weight:600}
+.result .lab .name{font-weight:500;font-style:italic}
+.result .eq{position:absolute;right:0;top:4px;font-family:var(--mono);font-size:11px;color:var(--ink3)}
+.result p{margin:0 0 6px;padding-right:52px}
+.result .ref{font-size:13.5px;color:var(--ink3)}
+.result .ref a{color:var(--ink2);border-bottom:1px solid var(--rule)}
+.result .ref a:hover{color:var(--ink);border-color:var(--ink)}
+.result .ref a+a{margin-left:12px}
+.award{font-variant:small-caps;letter-spacing:.06em;font-size:14px;color:var(--accent)}
 
-/* places */
-.place{margin-top:104px}
-.place-h{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:10px;margin-bottom:26px}
-.place-h h2{font-size:30px;font-weight:300;letter-spacing:-.015em;margin:0;line-height:1.1}
-.place-h h2 em{font-style:italic;color:var(--ink2)}
-.place-h .yrs{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--ink3);white-space:nowrap}
-.place .lead{font-size:19px;color:var(--ink);font-weight:300;line-height:1.5;margin-bottom:30px}
+/* positions */
+.cv{margin:0;padding:0;list-style:none}
+.cv li{display:grid;grid-template-columns:112px 1fr;gap:16px;margin-bottom:16px}
+.cv .when{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.03em;padding-top:5px;line-height:1.7}
+.cv .what b{font-weight:500}
+.cv .what i{color:var(--ink2)}
+.cv .what p{margin:3px 0 0;color:var(--ink2);font-size:16px}
 
-h3.k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:400;margin:38px 0 10px}
-.entry{display:grid;grid-template-columns:1fr auto;gap:18px;padding:16px 0;border-top:1px solid var(--rule)}
-.entry:last-of-type{border-bottom:1px solid var(--rule)}
-.entry .t{font-size:19px;letter-spacing:-.005em;display:inline-flex;gap:8px;align-items:baseline}
-.entry .t .ar{font-family:var(--mono);font-size:12px;color:var(--ink3);opacity:0;transform:translateX(-4px);transition:.2s}
-.entry:hover .t .ar{opacity:1;transform:none}
-.entry .d{color:var(--ink2);font-size:16.5px;line-height:1.5;margin-top:4px;max-width:56ch}
-.entry .m{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink3);text-align:right;white-space:nowrap;padding-top:5px}
-.entry .m i{font-style:normal;color:var(--accent)}
-.entry .links{margin-top:8px;display:flex;gap:14px}
-.entry .links a{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink3)}
-.entry .links a:hover{color:var(--ink)}
-.role{padding:18px 0;border-top:1px solid var(--rule)}
-.role:last-of-type{border-bottom:1px solid var(--rule)}
-.role h4{font-size:19px;font-weight:400;margin:0;letter-spacing:-.005em}
-.role h4 span{color:var(--ink2);font-weight:300}
-.role .when{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--ink3);margin:3px 0 8px}
-.role p{color:var(--ink2);font-size:16.5px;line-height:1.55;margin:0 0 6px;max-width:58ch}
+/* sidenotes */
+.sn-ref{font-size:.7em;vertical-align:super;line-height:0;color:var(--accent);margin-left:1px}
+.sn{float:right;clear:right;width:calc(var(--margin) - 40px);margin-right:calc(-1 * var(--margin));margin-top:2px;margin-bottom:8px;font-size:13px;line-height:1.45;color:var(--ink2);position:relative}
+.sn .n{position:absolute;left:-14px;top:0;font-size:11px;color:var(--accent)}
 
-/* notes */
-.note{border-top:1px solid var(--rule)}
+/* bibliography */
+.bib{margin:0;padding:0;list-style:none;counter-reset:b}
+.bib li{position:relative;padding-left:34px;margin-bottom:8px;font-size:16px;color:var(--ink2)}
+.bib li::before{counter-increment:b;content:"[" counter(b) "]";position:absolute;left:0;top:5px;font-family:var(--mono);font-size:11px;color:var(--ink3)}
+.bib li b{font-weight:500;color:var(--ink)}
+
+/* appendix: notes */
+.note{border-top:1px solid var(--rule);padding:12px 0 10px}
 .note:last-of-type{border-bottom:1px solid var(--rule)}
-.note summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:18px;padding:16px 0;align-items:baseline}
+.note summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:2.6em 1fr auto;gap:0 8px;align-items:baseline}
 .note summary::-webkit-details-marker{display:none}
-.note summary .t{font-size:19px;letter-spacing:-.005em}
-.note summary .d{color:var(--ink2);font-size:16px;margin-top:3px;max-width:56ch}
-.note summary .m{font-family:var(--mono);font-size:11px;color:var(--ink3);white-space:nowrap;padding-top:5px}
+.note summary .n{font-weight:500}
+.note summary .t{font-style:italic;font-size:17px}
+.note summary .d{grid-column:2;color:var(--ink2);font-size:15px;margin-top:2px}
+.note summary .m{font-family:var(--mono);font-size:11px;color:var(--ink3)}
 .note[open] summary .m::after{content:' · close'}
-.note .body{padding:2px 0 26px;max-width:58ch;font-size:17px}
-.note .body h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:400;margin:22px 0 8px}
-.note .body h4:first-child{margin-top:0}
-.note .body ul{padding-left:18px;margin:0 0 1em}.note .body li{margin-bottom:4px}
-.note .body .mb{display:block;font-style:italic;font-size:18px;padding:12px 0;margin:8px 0 14px;text-align:center;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);overflow-x:auto}
-.note .body code{font-family:var(--mono);font-size:13.5px}
-.note .body pre{background:var(--paper2);padding:16px 18px;margin:8px 0 16px;overflow-x:auto;line-height:1.6;font-size:13px;border-left:2px solid var(--rule)}
-.note .body .kw{color:var(--accent)}.note .body .cm{color:var(--ink3);font-style:italic}.note .body .v{font-style:italic}
+.note .nb{margin:14px 0 8px 2.6em;max-width:56ch;font-size:16px}
+.note .nb h4{font-size:14px;font-variant:small-caps;letter-spacing:.06em;font-weight:600;margin:18px 0 6px}
+.note .nb h4:first-child{margin-top:0}
+.note .nb ul{padding-left:18px;margin:0 0 .9em}.note .nb li{margin-bottom:3px}
+.note .nb .mb{display:block;font-style:italic;padding:10px 0;margin:6px 0 12px;text-align:center;overflow-x:auto}
+.note .nb code{font-family:var(--mono);font-size:13px}
+.note .nb pre{background:var(--paper2);padding:14px 16px;margin:6px 0 14px;overflow-x:auto;line-height:1.55;font-size:12.5px}
+.note .nb .kw{color:var(--accent)}.note .nb .cm{color:var(--ink3);font-style:italic}.note .nb .v{font-style:italic}
 
-/* contact + colophon */
-.contact p.big{font-size:21px;font-weight:300;line-height:1.5;color:var(--ink)}
-.colophon{margin-top:80px;padding-top:24px;border-top:1px solid var(--rule);color:var(--ink3);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.qed{text-align:right;font-size:18px;margin-top:8px;padding-right:52px}
+.colophon{margin-top:72px;padding-top:18px;border-top:1px solid var(--rule);font-size:13px;color:var(--ink3);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:var(--col)}
 .colophon a{color:var(--ink2)}.colophon a:hover{color:var(--ink)}
-.kolam-foot{display:block;margin:72px auto 0;width:56px;height:56px;color:var(--ink3)}
-.kolam-foot path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.4s cubic-bezier(.4,0,.2,1)}
-.kolam-foot.in path{stroke-dashoffset:0}
 
-.fade{opacity:0;transform:translateY(6px);animation:in .9s cubic-bezier(.2,.7,.2,1) forwards}
-@keyframes in{to{opacity:1;transform:none}}
+.fade{opacity:0;animation:in 1s .1s ease forwards}
+@keyframes in{to{opacity:1}}
 
-@media(max-width:900px){
-  .frame{grid-template-columns:minmax(0,640px);gap:0}
-  .route{display:none}
-  .mast{margin-bottom:64px}
+@media(max-width:980px){
+  .paper{max-width:var(--col)}
+  .sn{float:none;width:auto;margin:6px 0 10px;padding-left:14px;border-left:1px solid var(--rule);display:block;font-size:13.5px}
+  .sn .n{position:static;margin-right:6px}
+  .result p,.qed{padding-right:0}
+  .result .eq{position:static;display:block;margin-bottom:4px}
 }
 @media(max-width:600px){
   body{font-size:17px}
-  .frame{padding-top:36px}
-  .place{margin-top:80px}
-  .entry,.note summary{grid-template-columns:1fr;gap:4px}
-  .entry .m,.note summary .m{text-align:left;padding:0;order:-1}
-  .place-h{flex-direction:column;gap:4px;align-items:flex-start}
+  .paper{padding-top:44px}
+  .title{margin:24px 0 44px}
+  .cv li{grid-template-columns:1fr;gap:2px}
+  .cv .when{padding:0}
+  .note summary{grid-template-columns:2.2em 1fr}
+  .note summary .m{grid-column:2}
+  .note .nb{margin-left:0}
 }
-@media(prefers-reduced-motion:reduce){.fade,.draw{animation:none;opacity:1;transform:none;stroke-dashoffset:0}.route .line-done{transition:none}}
+@media(prefers-reduced-motion:reduce){.fade,.draw{animation:none;opacity:1;stroke-dashoffset:0}}
 </style>
 </head>
 <body>
-<canvas id="lattice" aria-hidden="true"></canvas>
-<div class="frame">
 
-<header class="mast fade">
-  <a class="mark" href="#top" id="top" aria-label="Home">
-    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
-      <g fill="currentColor" stroke="none"><circle cx="50" cy="26" r="2.6"/><circle cx="74" cy="50" r="2.6"/><circle cx="50" cy="74" r="2.6"/><circle cx="26" cy="50" r="2.6"/><circle cx="72" cy="28" r="2.6"/><circle cx="72" cy="72" r="2.6"/><circle cx="28" cy="72" r="2.6"/><circle cx="28" cy="28" r="2.6"/></g>
-      <path class="draw" pathLength="1" d="M50 50 C 50 10, 90 10, 90 50 C 90 90, 50 90, 50 50 C 50 10, 10 10, 10 50 C 10 90, 50 90, 50 50 C 90 50, 90 10, 50 10 C 10 10, 10 50, 50 50 C 90 50, 90 90, 50 90 C 10 90, 10 50, 50 50 Z"/>
-    </svg>
-    <span class="nm">Amudhan Muthaiah</span>
-  </a>
-  <nav>
-    <a href="#newyork">New York</a>
-    <a href="#bengaluru">Bengaluru</a>
-    <a href="#mandi">Mandi</a>
-    <a href="#notes">Notes</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+<div class="running" id="running"><div class="inner"><a href="#top">A. Muthaiah — amudhan.dev</a><span><a href="#s2">Results</a> · <a href="#s3">Positions</a> · <a href="#app">Notes</a> · <a href="#s5">Correspondence</a></span></div></div>
 
-<!-- ROUTE: the margin map. New York at the top, Mandi at the bottom; read backwards. -->
-<aside class="route fade" aria-label="Route">
-  <svg viewBox="0 0 240 420" id="map">
-    <path class="line" d="M40 40 V 360"/>
-    <path class="line-done" id="linedone" pathLength="1" d="M40 40 V 360"/>
-    <path class="tick" d="M40 96 H 62"/><text class="side" x="68" y="100">a summer in San Jose</text>
-    <path class="tick" d="M40 318 H 62"/><text class="side" x="68" y="322">three summers in Kolkata</text>
-    <g data-st="newyork"><circle class="st" cx="40" cy="40" r="4.5"/><text class="lbl" x="58" y="38">New York</text><text class="co" x="58" y="52">40.73° N · 73.99° W · <tspan id="t-ny"></tspan></text></g>
-    <g data-st="bengaluru"><circle class="st" cx="40" cy="200" r="4.5"/><text class="lbl" x="58" y="198">Bengaluru</text><text class="co" x="58" y="212">12.97° N · 77.59° E · <tspan id="t-in"></tspan></text></g>
-    <g data-st="mandi"><circle class="st" cx="40" cy="360" r="4.5"/><text class="lbl" x="58" y="358">Mandi</text><text class="co" x="58" y="372">31.78° N · 76.99° E · <tspan id="t-in2"></tspan></text></g>
-    <circle class="me-ring" id="mering" cx="40" cy="40" r="9"/>
-    <circle class="me" id="me" cx="40" cy="40" r="3"/>
+<div class="paper fade" id="top">
+
+<div class="title">
+  <svg class="orn" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+    <g fill="currentColor" stroke="none"><circle cx="50" cy="26" r="2.6"/><circle cx="74" cy="50" r="2.6"/><circle cx="50" cy="74" r="2.6"/><circle cx="26" cy="50" r="2.6"/><circle cx="72" cy="28" r="2.6"/><circle cx="72" cy="72" r="2.6"/><circle cx="28" cy="72" r="2.6"/><circle cx="28" cy="28" r="2.6"/></g>
+    <path class="draw" pathLength="1" d="M50 50 C 50 10, 90 10, 90 50 C 90 90, 50 90, 50 50 C 50 10, 10 10, 10 50 C 10 90, 50 90, 50 50 C 90 50, 90 10, 50 10 C 10 10, 10 50, 50 50 C 90 50, 90 90, 50 90 C 10 90, 10 50, 50 50 Z"/>
   </svg>
-  <div class="route-foot"><b id="where">You are reading from New York.</b><br>Scroll to travel back.</div>
-</aside>
+  <h1>On Building Systems That Have to Work: Notes from Backend Engineering, On‑Chain Infrastructure, and Zero‑Knowledge Proofs</h1>
+  <p class="author">Amudhan Muthaiah</p>
+  <p class="affil">Courant Institute of Mathematical Sciences, New York University</p>
+  <p class="date"><span id="date">November 2026</span> · New York</p>
 
-<main class="col">
-
-<div class="intro fade" id="intro">
-  <h1>I build systems that have to work. <em>This is the route that got me here, read backwards.</em></h1>
-  <p>Software engineer in New York. Three and a half years at IBM in Bengaluru, a summer of account‑abstraction infrastructure at Sahara AI, and an M.S. from NYU Courant, where I now do applied cryptography research in Rust. Three hackathon wins, two papers, one patent, and a habit of shipping something real by Sunday.</p>
-  <p>Currently building <a class="u" href="https://commentator.onrender.com" target="_blank" rel="noopener">Commentator</a> — live AI sports commentary in your own language — and looking for a team that ships hard things.</p>
+  <div class="abstract">
+    <b>Abstract.</b> The author is a software engineer who prefers the parts of the stack where correctness is non‑negotiable. We summarise three and a half years of production backend engineering at IBM, a summer of account‑abstraction infrastructure at Sahara AI, and current research in zero‑knowledge proof systems at NYU Courant. Supporting evidence includes three hackathon wins, two peer‑reviewed publications, one granted patent, and a working product built in two days. The reader is invited to act as verifier.
+    <div class="kw"><b>Keywords:</b> distributed systems, Rust, EVM, ERC‑4337, Bulletproofs, RISC Zero, shipping on weekends.</div>
+  </div>
   <div class="links">
     <a class="u" href="https://github.com/amudhan23" target="_blank" rel="noopener">GitHub</a>
     <a class="u" href="https://linkedin.com/in/amudhanmuthaiah" target="_blank" rel="noopener">LinkedIn</a>
     <a class="u" href="https://x.com/amudhanmuthaiah" target="_blank" rel="noopener">X</a>
-    <a class="u" href="#contact">Email</a>
+    <a class="u" href="mailto:amudhanmuthaiah@gmail.com">amudhanmuthaiah@gmail.com</a>
   </div>
 </div>
 
-<!-- ═══ NEW YORK ═══ -->
-<section class="place" id="newyork" data-where="You are reading from New York.">
-  <div class="place-h"><h2>New York, <em>now</em></h2><span class="yrs">2024 — PRESENT</span></div>
-  <p class="lead">I came for a master's and stayed for the cryptography. Courant is where I stopped reading about zero‑knowledge proofs and started implementing them; the hackathon wins happened on the weekends in between.</p>
+<div class="body">
 
-  <h3 class="k">Building</h3>
-  <div class="entry"><div><a class="t" href="https://commentator.onrender.com" target="_blank" rel="noopener">Commentator <span class="ar">↗</span></a>
-    <div class="d">A billion sports fans never get commentary in their language. Commentator watches the match footage itself, picks the moments that matter, and calls them live in the language, style and voice you choose. Fifteen languages; Tamil and Telugu cricket first. Built in two days.</div>
-    <div class="links"><a href="https://github.com/amudhan23/commentator" target="_blank" rel="noopener">source</a></div></div>
-    <div class="m"><i>Live</i> · 2026</div></div>
-
-  <h3 class="k">Research · NYU Courant</h3>
-  <div class="role"><h4>Research Affiliate <span>· Courant Institute</span></h4><div class="when">JUL 2026 — PRESENT</div>
-    <p>Implementing Bulletproofs with R1CS constraints in Rust and arkworks, with a benchmarking harness built from scratch; now extending into distributed key generation and threshold cryptography.</p></div>
-  <div class="entry"><div><a class="t" href="https://github.com/amudhan23/bulletProofRust" target="_blank" rel="noopener">Bulletproofs in Rust <span class="ar">↗</span></a>
-    <div class="d">Bulletproofs with R1CS on arkworks, and a harness that measures proof generation across constraint counts. Written to understand the protocol by building it.</div></div><div class="m">2026</div></div>
-  <div class="entry"><div><a class="t" href="https://github.com/amudhan23/golden-dkg" target="_blank" rel="noopener">Golden DKG <span class="ar">↗</span></a>
-    <div class="d">Distributed key generation and threshold signatures, reimplemented from the primitives up to see the trade‑offs first‑hand. In progress.</div></div><div class="m">2026</div></div>
-
-  <h3 class="k">Hackathons</h3>
-  <div class="entry"><div><a class="t" href="https://github.com/amudhan23/ETHDenver_ZK_Final" target="_blank" rel="noopener">ZK‑Sortition <span class="ar">↗</span></a>
-    <div class="d">Trustless committee selection for DAOs inside a RISC Zero zkVM: verifiably random, no trusted party, no stakes revealed. Groth16 proof settled on Base; a custom journal format works around the Serde‑to‑ABI padding mismatch.</div></div>
-    <div class="m"><i>ETHDenver · ADI track winner</i></div></div>
-  <div class="entry"><div><span class="t">Dark Forest Bounties</span>
-    <div class="d">A ZK‑settled, cross‑chain bounty marketplace. Each bounty carries its own target and invariant; the proof binds bounty and hunter, payout waits in escrow, and the exploit is encrypted to the poster so the fix reaches them. Shipped end to end in 48 hours.</div>
-    <div class="links"><a href="https://github.com/amudhan23/bounty_contract" target="_blank" rel="noopener">contract</a><a href="https://github.com/amudhan23/bounty_prover" target="_blank" rel="noopener">prover</a><a href="https://github.com/amudhan23/bounty_frontend" target="_blank" rel="noopener">frontend</a></div></div>
-    <div class="m"><i>Monad · track winner</i></div></div>
-  <div class="entry"><div><a class="t" href="https://github.com/amudhan23/accessMint" target="_blank" rel="noopener">AccessMint <span class="ar">↗</span></a>
-    <div class="d">A tokenised API marketplace: providers list endpoints, buyers purchase metered access, settlement on Hedera, World ID for identity, an immutable audit log on every call. React, Express, PostgreSQL — the whole stack, alone, in a weekend.</div></div>
-    <div class="m">ETHGlobal NYC · solo</div></div>
-
-  <h3 class="k">A summer away · Sahara AI, San Jose</h3>
-  <div class="role"><h4>Blockchain Infrastructure Engineer <span>· Sahara AI</span></h4><div class="when">JUN — AUG 2025</div>
-    <p>Built production ERC‑4337 and EIP‑7702 account abstraction with custom Paymaster contracts on Base mainnet: gasless transactions and non‑custodial wallet flows with real assets. Cross‑chain messaging over LayerZero across Arbitrum, Optimism and Base; Pimlico and Alchemy bundlers for reliable submission.</p>
-    <p>Stress‑tested third‑party services under production load and designed automatic failure‑recovery paths that removed a class of manual intervention.</p></div>
-
-  <h3 class="k">Systems, for the love of it</h3>
-  <div class="entry"><div><a class="t" href="https://github.com/amudhan23/req-guard" target="_blank" rel="noopener">req‑guard <span class="ar">↗</span></a>
-    <div class="d">An async HTTP proxy that validates every request against configurable rules before it reaches a backend. Tokio and Hyper; Arc‑shared config; generic forwarding over the Body trait.</div></div><div class="m">Rust</div></div>
-  <div class="entry"><div><a class="t" href="https://github.com/iiiian/silk_physics" target="_blank" rel="noopener">GPU physics engine <span class="ar">↗</span></a>
-    <div class="d">Real‑time parallel simulation in C++ and CUDA. Nsight showed the bottleneck was memory bandwidth, not compute; fixing the access patterns gave a 4× speed‑up at a steady 60 frames per second.</div></div><div class="m">C++ · CUDA</div></div>
-  <div class="entry"><div><span class="t">Distributed data pipeline</span>
-    <div class="d">A multi‑stage MapReduce pipeline over 8 GB and 48 million rows, joining four datasets into a weighted index; found and fixed a silent join‑correctness bug spanning all four.</div></div><div class="m">Java · Hadoop · Trino</div></div>
-
-  <h3 class="k">Degree</h3>
-  <div class="role"><h4>M.S. Computer Science <span>· New York University, Courant Institute</span></h4><div class="when">AUG 2024 — MAY 2026</div>
-    <p>Applied cryptography, cryptography of blockchains, distributed systems, operating systems, GPU architecture and programming, realtime and big‑data analytics.</p></div>
+<section id="s1">
+  <h2><span class="n">1</span>Introduction</h2>
+  <p>I grew up in India, studied computer science at IIT Mandi, and spent three and a half years at IBM Bengaluru owning Java services that handled millions of transactions a day.<span class="sn-ref">1</span><span class="sn"><span class="n">1</span>Including a 50,000‑line ColdFusion monolith that had to become microservices without anyone noticing. Nobody noticed.</span> In 2024 I moved to New York for a master's at NYU Courant and fell into applied cryptography: I implemented Bulletproofs in Rust, and I'm now extending that into distributed key generation as a research affiliate.</p>
+  <p>In between, I built account‑abstraction and cross‑chain infrastructure at Sahara AI, won hackathon tracks at ETHDenver and Monad, and shipped a full marketplace alone in one weekend at ETHGlobal NYC. I am currently building <a class="u" href="https://commentator.onrender.com" target="_blank" rel="noopener">Commentator</a>, live AI sports commentary in your own language, and looking for a team that ships hard things.</p>
+  <p>The remainder of this document is organised as follows. §2 presents selected results. §3 describes positions held. §4 lists publications and recognition. An appendix collects working notes on zero‑knowledge cryptography.</p>
 </section>
 
-<!-- ═══ BENGALURU ═══ -->
-<section class="place" id="bengaluru" data-where="You are now in Bengaluru.">
-  <div class="place-h"><h2>Bengaluru, <em>the production years</em></h2><span class="yrs">2021 — 2024</span></div>
-  <p class="lead">Three and a half years at IBM taught me what "it works" actually means: on‑call at 3 a.m., migrations with no downtime, and the quiet satisfaction of a dashboard that stays green.</p>
-  <div class="role"><h4>Software Engineer <span>· IBM</span></h4><div class="when">JAN 2021 — JUL 2024</div>
-    <p>Built and operated distributed Java Spring Boot services and REST APIs handling millions of transactions a day, with full on‑call ownership.</p>
-    <p>Owned the migration of a 50,000‑line ColdFusion monolith to microservices on Azure — design through production cutover — with zero downtime and a 30% cut in maintenance cost.</p>
-    <p>Tuned PostgreSQL and introduced Redis caching, cutting API latency 40%. Built the team's observability stack (tracing, metrics, alerting) from nothing. Raised test coverage 30%, cut production defects 25%, and ran CI/CD on Jenkins, Docker and Kubernetes.</p></div>
+<section id="s2">
+  <h2><span class="n">2</span>Selected results</h2>
+
+  <h3><span class="n">2.1</span>Products</h3>
+  <div class="result"><span class="eq">(2.1)</span>
+    <p><span class="lab">Result 2.1 <span class="name">(Commentator).</span></span> A billion sports fans never get commentary in their language. Commentator watches the match footage itself — not a stats feed — picks the moments that matter, and calls them live in the language, style and voice the viewer chooses. Fifteen languages; Tamil and Telugu cricket first.<span class="sn-ref">2</span><span class="sn"><span class="n">2</span>Built in two days. The hard part is real‑time video understanding and latency, which is a systems problem, which is the point.</span></p>
+    <div class="ref"><a href="https://commentator.onrender.com" target="_blank" rel="noopener">live demo</a><a href="https://github.com/amudhan23/commentator" target="_blank" rel="noopener">source</a></div>
+  </div>
+
+  <h3><span class="n">2.2</span>Zero‑knowledge systems</h3>
+  <div class="result"><span class="eq">(2.2)</span>
+    <p><span class="lab">Result 2.2 <span class="name">(ZK‑Sortition).</span></span> Trustless committee selection for DAOs inside a RISC Zero zkVM: verifiably random, no trusted party, no stakes revealed. Produces a Groth16 proof settled on Base.<span class="sn-ref">3</span><span class="sn"><span class="n">3</span>Serde pads the journal; the Solidity ABI doesn't. A custom journal format reconciles the two. That cost one night.</span> <span class="award">ETHDenver, ADI track winner.</span></p>
+    <div class="ref"><a href="https://github.com/amudhan23/ETHDenver_ZK_Final" target="_blank" rel="noopener">source</a></div>
+  </div>
+  <div class="result"><span class="eq">(2.3)</span>
+    <p><span class="lab">Result 2.3 <span class="name">(Dark Forest Bounties).</span></span> A ZK‑settled, cross‑chain bounty marketplace. Each bounty carries its own target and invariant; the proof binds bounty and hunter; payout waits in escrow; the exploit is encrypted to the poster so the fix actually reaches them. Shipped end to end in 48 hours. <span class="award">Monad hackathon, track winner.</span></p>
+    <div class="ref"><a href="https://github.com/amudhan23/bounty_contract" target="_blank" rel="noopener">contract</a><a href="https://github.com/amudhan23/bounty_prover" target="_blank" rel="noopener">prover</a><a href="https://github.com/amudhan23/bounty_frontend" target="_blank" rel="noopener">frontend</a></div>
+  </div>
+  <div class="result"><span class="eq">(2.4)</span>
+    <p><span class="lab">Result 2.4 <span class="name">(Bulletproofs in Rust).</span></span> An implementation of Bulletproofs with R1CS constraints on arkworks, with a benchmarking harness measuring proof generation across constraint counts. Written to understand the protocol by building it; see Appendix A.</p>
+    <div class="ref"><a href="https://github.com/amudhan23/bulletProofRust" target="_blank" rel="noopener">source</a></div>
+  </div>
+  <div class="result"><span class="eq">(2.5)</span>
+    <p><span class="lab">Result 2.5 <span class="name">(Golden DKG, in progress).</span></span> Distributed key generation and threshold signatures, reimplemented from the primitives up to see the trade‑offs first‑hand.</p>
+    <div class="ref"><a href="https://github.com/amudhan23/golden-dkg" target="_blank" rel="noopener">source</a></div>
+  </div>
+
+  <h3><span class="n">2.3</span>Marketplaces and infrastructure</h3>
+  <div class="result"><span class="eq">(2.6)</span>
+    <p><span class="lab">Result 2.6 <span class="name">(AccessMint).</span></span> A tokenised API marketplace: providers list endpoints, buyers purchase metered access, settlement on Hedera, World ID for identity, an immutable audit log on every call. React, Express, PostgreSQL. <span class="award">ETHGlobal NYC, built solo in 48 hours.</span></p>
+    <div class="ref"><a href="https://github.com/amudhan23/accessMint" target="_blank" rel="noopener">source</a></div>
+  </div>
+  <div class="result"><span class="eq">(2.7)</span>
+    <p><span class="lab">Result 2.7 <span class="name">(req‑guard).</span></span> An async HTTP proxy in Rust that validates every request against configurable rules before it reaches a backend. Tokio and Hyper; Arc‑shared configuration; generic forwarding over the Body trait.</p>
+    <div class="ref"><a href="https://github.com/amudhan23/req-guard" target="_blank" rel="noopener">source</a></div>
+  </div>
+
+  <h3><span class="n">2.4</span>Systems</h3>
+  <div class="result"><span class="eq">(2.8)</span>
+    <p><span class="lab">Result 2.8 <span class="name">(GPU physics engine).</span></span> Real‑time parallel simulation in C++ and CUDA. Profiling in Nsight showed the bottleneck was memory bandwidth, not compute; fixing the access patterns gave a 4× speed‑up at a steady 60 frames per second.<span class="sn-ref">4</span><span class="sn"><span class="n">4</span>The lesson generalises: measure first. The naive kernel was not slow for the reason I assumed.</span></p>
+    <div class="ref"><a href="https://github.com/iiiian/silk_physics" target="_blank" rel="noopener">source</a></div>
+  </div>
+  <div class="result"><span class="eq">(2.9)</span>
+    <p><span class="lab">Result 2.9 <span class="name">(Distributed data pipeline).</span></span> A multi‑stage MapReduce pipeline over 8 GB and 48 million rows, joining four datasets into a weighted index; found and fixed a silent join‑correctness bug spanning all four. Java, Hadoop, Hive, Trino.</p>
+  </div>
+  <div class="result"><span class="eq">(2.10)</span>
+    <p><span class="lab">Result 2.10 <span class="name">(Smart Roads).</span></span> A MEMS‑based vehicle‑detection system that warns drivers of oncoming traffic at blind mountain turns. Co‑founded at IIT Mandi, 2018–20; funded by the Design &amp; Innovation Centre; Himalayan Innovation Challenge winner. <span class="award">Indian Patent No. 372004, granted.</span></p>
+  </div>
 </section>
 
-<!-- ═══ MANDI ═══ -->
-<section class="place" id="mandi" data-where="You've reached Mandi, where it started.">
-  <div class="place-h"><h2>Mandi, <em>where it started</em></h2><span class="yrs">2017 — 2021</span></div>
-  <p class="lead">Computer science at IIT Mandi, in the Himalayas. The roads up to campus have blind turns; that became my first real engineering problem, and eventually a patent.</p>
-
-  <h3 class="k">Smart Roads</h3>
-  <div class="entry"><div><span class="t">Co‑founder, Smart Roads</span>
-    <div class="d">A MEMS‑based vehicle‑detection system that warns drivers of oncoming traffic at blind mountain turns. Funded by IIT Mandi's Design &amp; Innovation Centre; winner of the Himalayan Innovation Challenge; granted Indian Patent No. 372004.</div></div>
-    <div class="m"><i>Patented</i> · 2018–20</div></div>
-
-  <h3 class="k">Research · Indian Statistical Institute, Kolkata</h3>
-  <div class="role"><h4>Research Intern <span>· ISI Kolkata, three stints</span></h4><div class="when">2018 — 2021</div>
-    <p>A blockchain‑based healthcare data system, and a consent‑driven data marketplace built on Merkle proofs, multisignature authorisation and smart contracts. Solidity and Go. Both became papers:</p></div>
-  <div class="entry"><div><span class="t">Distributed Architecture for Data Trading with User Consent</span><div class="d">Springer DESRIST</div></div><div class="m">2022</div></div>
-  <div class="entry"><div><span class="t">Decentralized Secure &amp; Smart Healthcare System</span><div class="d">IEEE COMSNETS</div></div><div class="m">2021</div></div>
-
-  <h3 class="k">Also</h3>
-  <div class="role"><h4>Engineer <span>· Tokenizer</span></h4><div class="when">DEC 2019 — JUN 2020</div><p>Shipped a native token system and a geolocation‑based NFT marketplace to production.</p></div>
-  <div class="role"><h4>B.Tech Computer Science &amp; Engineering <span>· IIT Mandi</span></h4><div class="when">JUL 2017 — MAY 2021</div></div>
+<section id="s3">
+  <h2><span class="n">3</span>Positions held</h2>
+  <ul class="cv">
+    <li><span class="when">JUL 2026 —<br>PRESENT</span><div class="what"><b>Research Affiliate,</b> <i>Courant Institute, NYU.</i><p>Bulletproofs with R1CS constraints in Rust and arkworks; a benchmarking harness from scratch; extending into distributed key generation and threshold cryptography.</p></div></li>
+    <li><span class="when">JUN — AUG<br>2025</span><div class="what"><b>Blockchain Infrastructure Engineer,</b> <i>Sahara AI, San Jose.</i><p>Production ERC‑4337 and EIP‑7702 account abstraction with custom Paymaster contracts on Base mainnet; cross‑chain messaging over LayerZero across Arbitrum, Optimism and Base; Pimlico and Alchemy bundlers. Designed automatic failure‑recovery paths for third‑party services that removed a class of manual intervention.</p></div></li>
+    <li><span class="when">JAN 2021 —<br>JUL 2024</span><div class="what"><b>Software Engineer,</b> <i>IBM, Bengaluru.</i><p>Distributed Java Spring Boot services handling millions of transactions a day, with full on‑call ownership. Owned the zero‑downtime migration of a 50,000‑line ColdFusion monolith to microservices on Azure, cutting maintenance cost 30%. PostgreSQL tuning and Redis caching cut API latency 40%; built the team's observability stack from nothing; raised test coverage 30% and cut production defects 25%.</p></div></li>
+    <li><span class="when">2018 — 2021</span><div class="what"><b>Research Intern,</b> <i>Indian Statistical Institute, Kolkata</i> (three stints).<p>A blockchain‑based healthcare data system, and a consent‑driven data marketplace on Merkle proofs, multisignature authorisation and smart contracts. Both became publications [1, 2].</p></div></li>
+    <li><span class="when">2018 — 2020</span><div class="what"><b>Co‑founder,</b> <i>Smart Roads;</i> <b>Engineer,</b> <i>Tokenizer</i> (2019–20).<p>See Result 2.10. At Tokenizer, shipped a native token system and a geolocation‑based NFT marketplace to production.</p></div></li>
+  </ul>
+  <h3><span class="n">3.1</span>Education</h3>
+  <ul class="cv">
+    <li><span class="when">2024 — 2026</span><div class="what"><b>M.S. Computer Science,</b> <i>New York University, Courant Institute.</i><p>Applied cryptography, cryptography of blockchains, distributed systems, operating systems, GPU architecture and programming, realtime and big‑data analytics.</p></div></li>
+    <li><span class="when">2017 — 2021</span><div class="what"><b>B.Tech Computer Science &amp; Engineering,</b> <i>Indian Institute of Technology Mandi.</i></div></li>
+  </ul>
 </section>
 
-<!-- ═══ NOTES ═══ -->
-<section class="place" id="notes" data-where="Notes, from wherever I happen to be.">
-  <div class="place-h"><h2>Notes, <em>from the road</em></h2><span class="yrs">WORKING NOTES</span></div>
-  <p class="lead">Written for myself while learning zero‑knowledge cryptography; published in case they're useful to someone a few months behind me.</p>
+<section id="s4">
+  <h2><span class="n">4</span>Publications and recognition</h2>
+  <ol class="bib">
+    <li><b>Distributed Architecture for Data Trading with User Consent.</b> Springer DESRIST, 2022.</li>
+    <li><b>Decentralized Secure &amp; Smart Healthcare System.</b> IEEE COMSNETS, 2021.</li>
+    <li><b>Vehicle‑detection system for accident prevention at blind turns.</b> Indian Patent No. 372004, granted.</li>
+    <li><b>ETHDenver 2026</b> — ADI track winner, ZK‑Sortition (2.2).</li>
+    <li><b>Monad hackathon 2026</b> — track winner, Dark Forest Bounties (2.3).</li>
+    <li><b>ETHGlobal NYC 2026</b> — AccessMint (2.6), built solo in 48 hours.</li>
+    <li><b>Himalayan Innovation Challenge</b> — winner, Smart Roads (2.10).</li>
+  </ol>
+</section>
 
-  <details class="note"><summary><div><span class="t">Why Edwards curves for zero‑knowledge?</span><div class="d">One addition formula that handles every case, including doubling — and why that matters inside a circuit.</div></div><span class="m">NOV 2026 · curves</span></summary>
-    <div class="body">
+<section id="app">
+  <h2><span class="n">A</span>Appendix: working notes on zero‑knowledge</h2>
+  <p style="color:var(--ink2);font-size:16px">Written for myself while learning; included in case they are useful to a reader a few months behind me.</p>
+
+  <details class="note"><summary><span class="n">A.1</span><span class="t">Why Edwards curves for zero‑knowledge?</span><span class="m">curves</span><span class="d">One addition formula that handles every case, including doubling — and why that matters inside a circuit.</span></summary>
+    <div class="nb">
       <h4>The problem with Weierstrass</h4>
       <p>The standard form <code>y² = x³ + ax + b</code> has <em>incomplete</em> addition formulas: separate logic for doubling, for adding distinct points, and for the point at infinity. In a circuit every branch costs constraints.</p>
       <h4>Edwards curves fix this</h4>
@@ -290,8 +270,8 @@ h3.k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:
       <p>ed25519 for signatures, Jubjub in Zcash, Baby Jubjub in Ethereum circuits — all chosen for complete addition laws and efficiency inside arithmetic circuits.</p>
     </div></details>
 
-  <details class="note"><summary><div><span class="t">Bulletproofs and the inner product argument</span><div class="d">Short proofs, no trusted setup. Each round halves the vector, so the proof is logarithmic in size.</div></div><span class="m">NOV 2026 · proofs</span></summary>
-    <div class="body">
+  <details class="note"><summary><span class="n">A.2</span><span class="t">Bulletproofs and the inner product argument</span><span class="m">proof systems</span><span class="d">Short proofs, no trusted setup. Each round halves the vector, so the proof is logarithmic in size.</span></summary>
+    <div class="nb">
       <h4>Pedersen commitments</h4>
       <p>The building block. A commitment to value <span class="v">v</span> with blinding factor <span class="v">r</span>:</p><span class="mb">C = v·G + r·H</span>
       <p>where <span class="v">G</span> and <span class="v">H</span> are generator points. Computationally binding, perfectly hiding, and additively homomorphic:</p><span class="mb">C(v₁) + C(v₂) = C(v₁ + v₂)</span>
@@ -303,8 +283,8 @@ h3.k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:
       <p>No trusted setup, no toxic waste, no ceremony. The cost is O(<span class="v">n</span>) verification instead of O(1). For many applications the simpler trust model wins.</p>
     </div></details>
 
-  <details class="note"><summary><div><span class="t">Pedersen commitments in arkworks</span><div class="d">A minimal Rust example on BLS12‑381, and the homomorphic property in one line.</div></div><span class="m">NOV 2026 · rust</span></summary>
-    <div class="body">
+  <details class="note"><summary><span class="n">A.3</span><span class="t">Pedersen commitments in arkworks</span><span class="m">rust</span><span class="d">A minimal Rust example on BLS12‑381, and the homomorphic property in one line.</span></summary>
+    <div class="nb">
       <h4>The ecosystem</h4>
       <p>arkworks is the standard Rust library family for zero‑knowledge work: curve arithmetic, finite fields, R1CS constraint systems and proof systems.</p>
       <h4>Minimal Pedersen on BLS12‑381</h4>
@@ -334,92 +314,27 @@ h3.k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:
     </div></details>
 </section>
 
-<!-- ═══ CONTACT ═══ -->
-<section class="place contact" id="contact" data-where="Next stop: wherever your team is.">
-  <div class="place-h"><h2>Next stop, <em>open</em></h2><span class="yrs">CONTACT</span></div>
-  <p class="big">If your team ships hard things — backend, full‑stack, or crypto infrastructure — I'd like to hear about it. Based in New York; happy to relocate for the right one.</p>
-  <p><a class="u" href="mailto:amudhanmuthaiah@gmail.com">amudhanmuthaiah@gmail.com</a></p>
-
-  <svg class="kolam-foot" id="kfoot" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-    <g fill="currentColor" stroke="none"><circle cx="50" cy="26" r="2"/><circle cx="74" cy="50" r="2"/><circle cx="50" cy="74" r="2"/><circle cx="26" cy="50" r="2"/><circle cx="72" cy="28" r="2"/><circle cx="72" cy="72" r="2"/><circle cx="28" cy="72" r="2"/><circle cx="28" cy="28" r="2"/></g>
-    <path pathLength="1" d="M50 50 C 50 10, 90 10, 90 50 C 90 90, 50 90, 50 50 C 50 10, 10 10, 10 50 C 10 90, 50 90, 50 50 C 90 50, 90 10, 50 10 C 10 10, 10 50, 50 50 C 90 50, 90 90, 50 90 C 10 90, 10 50, 50 50 Z"/>
-  </svg>
-  <div class="colophon">
-    <span>Amudhan Muthaiah · <span id="yr">2026</span><br><span id="nowline"></span></span>
-    <span><a href="https://github.com/amudhan23/personal-site" target="_blank" rel="noopener">Source</a> · set in Newsreader · the mark is a kolam</span>
-  </div>
+<section id="s5">
+  <h2><span class="n">5</span>Correspondence</h2>
+  <p>If your team ships hard things — backend, full‑stack, or crypto infrastructure — I would like to hear about it. Based in New York; happy to relocate for the right one. Write to <a class="u" href="mailto:amudhanmuthaiah@gmail.com">amudhanmuthaiah@gmail.com</a>.<span class="sn-ref">5</span><span class="sn"><span class="n">5</span>No trusted setup required.</span></p>
+  <div class="qed">∎</div>
 </section>
 
-</main>
+<div class="colophon">
+  <span>Amudhan Muthaiah · New York · <span id="yr">2026</span></span>
+  <span><a href="https://github.com/amudhan23/personal-site" target="_blank" rel="noopener">Source</a> · set in STIX Two · the ornament is a kolam</span>
+</div>
+
+</div>
 </div>
 
 <script>
 (function(){
-document.getElementById('yr').textContent=new Date().getFullYear();
-
-/* clocks: where I am, where I've been */
-const clock=tz=>new Date().toLocaleTimeString('en-US',{timeZone:tz,hour:'numeric',minute:'2-digit'}).toLowerCase().replace(' ','');
-const partOf=tz=>{const h=+new Intl.DateTimeFormat('en-US',{timeZone:tz,hour:'numeric',hour12:false}).format(new Date())%24;return h<5?'late night':h<12?'morning':h<17?'afternoon':h<21?'evening':'night';};
-function tick(){
-  const ny=clock('America/New_York'), ind=clock('Asia/Kolkata');
-  document.getElementById('t-ny').textContent=ny; document.getElementById('t-in').textContent=ind; document.getElementById('t-in2').textContent=ind;
-  document.getElementById('nowline').textContent=`It's ${partOf('America/New_York')} in New York and ${partOf('Asia/Kolkata')} in Mandi.`;
-}
-tick(); setInterval(tick,30000);
-
-/* the route marker travels as you scroll */
-const stations=[{id:'intro',y:40},{id:'newyork',y:40},{id:'bengaluru',y:200},{id:'mandi',y:360},{id:'notes',y:360},{id:'contact',y:360}];
-const cityOf=['newyork','newyork','bengaluru','mandi','mandi','mandi'];
-const me=document.getElementById('me'), ring=document.getElementById('mering'), done=document.getElementById('linedone'), where=document.getElementById('where');
-const sts=[...document.querySelectorAll('[data-st]')];
-let raf=null;
-function pos(){
-  raf=null;
-  const probe=innerHeight*0.38+scrollY;
-  const els=stations.map(s=>({...s,top:document.getElementById(s.id).offsetTop}));
-  let y=40, idx=0;
-  for(let i=0;i<els.length;i++){
-    const a=els[i], b=els[i+1];
-    if(!b || probe<b.top){
-      if(b && probe>a.top){const f=Math.min(1,Math.max(0,(probe-a.top)/(b.top-a.top))); y=a.y+(b.y-a.y)*f;}
-      else y=a.y;
-      idx=i; break;
-    }
-  }
-  me.setAttribute('cy',y); ring.setAttribute('cy',y);
-  done.style.strokeDashoffset=1-(y-40)/320;
-  const cur=cityOf[idx];
-  sts.forEach(g=>{const on=g.dataset.st===cur; g.querySelector('.st').classList.toggle('on',on); g.querySelector('.lbl').classList.toggle('on',on);});
-  const sec=document.getElementById(els[idx].id); where.textContent=(sec&&sec.dataset.where)||'You are reading from New York.';
-}
-addEventListener('scroll',()=>{if(!raf) raf=requestAnimationFrame(pos);},{passive:true});
-addEventListener('resize',pos); addEventListener('load',pos); pos();
-
-/* foot kolam draws when it arrives */
-const k=document.getElementById('kfoot');
-new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){k.classList.add('in');o.disconnect();}})},{threshold:.6}).observe(k);
-
-/* a kolam lattice hidden in the paper, revealed under the cursor */
-if(matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches){
-  const cv=document.getElementById('lattice'), ctx=cv.getContext('2d');
-  let W,H,dpr; const S=28,R=190; const m={x:-9999,y:-9999}; let r2=null, fade=0;
-  function size(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
-  size(); addEventListener('resize',size);
-  const ink=()=>getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();
-  function draw(){
-    r2=null; ctx.clearRect(0,0,W,H); if(fade<=.01) return;
-    const col=ink(); const x0=Math.max(0,Math.floor((m.x-R)/S)*S), x1=Math.min(W,m.x+R), y0=Math.max(0,Math.floor((m.y-R)/S)*S), y1=Math.min(H,m.y+R);
-    for(let x=x0;x<=x1;x+=S) for(let y=y0;y<=y1;y+=S){
-      const d=Math.hypot(x-m.x,y-m.y); if(d>R) continue; const kk=1-d/R;
-      ctx.beginPath(); ctx.arc(x,y,1.1+kk*.6,0,6.283); ctx.fillStyle=col; ctx.globalAlpha=kk*kk*.3*fade; ctx.fill();
-    }
-    ctx.globalAlpha=1;
-  }
-  const loop=()=>{if(!r2) r2=requestAnimationFrame(draw);};
-  addEventListener('pointermove',e=>{m.x=e.clientX;m.y=e.clientY; fade=Math.min(1,fade+.08); loop();});
-  document.addEventListener('mouseleave',()=>{fade=0;loop();});
-  addEventListener('scroll',loop,{passive:true});
-}
+const d=new Date();
+document.getElementById('yr').textContent=d.getFullYear();
+document.getElementById('date').textContent=d.toLocaleDateString('en-US',{month:'long',year:'numeric',timeZone:'America/New_York'});
+const run=document.getElementById('running'), title=document.querySelector('.title');
+new IntersectionObserver(es=>{run.classList.toggle('on',!es[0].isIntersecting)},{threshold:0}).observe(title);
 })();
 </script>
 </body>
